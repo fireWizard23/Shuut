@@ -14,7 +14,7 @@ radius = 11.4018
 radius = 9.0
 height = 42.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_healthController", "_weaponHandler")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_healthController", "_weaponHandler", "Label")]
 collision_layer = 2
 collision_mask = 19
 motion_mode = 1
@@ -22,6 +22,7 @@ script = ExtResource("1_a2go8")
 _healthController = NodePath("Health")
 _weaponHandler = NodePath("WeaponHandler")
 AttackMask = 9
+Label = NodePath("State")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, 0)
@@ -43,6 +44,11 @@ shape = SubResource("CapsuleShape2D_7wkqt")
 
 [node name="Health" type="Node2D" parent="."]
 script = ExtResource("6_xnxd5")
+
+[node name="State" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="OnHurt" from="WeaponHandler/Hurtbox" to="." method="_on_hurtbox_on_hurt"]
 [connection signal="OnHealthZero" from="Health" to="." method="_on_health_on_health_zero"]

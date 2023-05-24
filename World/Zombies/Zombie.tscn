@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://t56vlmdsrqm6"]
+
+[ext_resource type="Script" path="res://World/Zombies/ZombieController.cs" id="1_s4mqb"]
+[ext_resource type="PackedScene" uid="uid://ht2alqa7f206" path="res://Scripts/Hurtbox/hurtbox.tscn" id="2_2ax57"]
+[ext_resource type="Texture2D" uid="uid://byvuta14p71gq" path="res://Assets/Characters/Zombie 1/zoimbie1_hold.png" id="2_ev2b3"]
+[ext_resource type="Script" path="res://World/HealthController.cs" id="4_tuw6m"]
+[ext_resource type="PackedScene" uid="uid://8knc8vxvk1h1" path="res://World/Weapons/weapon_handler.tscn" id="5_xwfhe"]
+[ext_resource type="PackedScene" uid="uid://cfceleysjka87" path="res://World/Weapons/Fist/fist.tscn" id="6_epsl6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ra835"]
+radius = 13.0
+height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u41fn"]
+radius = 12.1655
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ghik6"]
+radius = 157.563
+
+[node name="Zombie" type="CharacterBody2D" node_paths=PackedStringArray("PathLine2D", "Detector", "StateLabel", "HealthController", "WeaponHandler")]
+collision_layer = 16
+collision_mask = 19
+motion_mode = 1
+script = ExtResource("1_s4mqb")
+MovementSpeed = 50.0
+PathLine2D = NodePath("Line2D")
+Detector = NodePath("Detector")
+StateLabel = NodePath("Label")
+HealthController = NodePath("Health")
+WeaponHandler = NodePath("WeaponHandler")
+AttackMask = 5
+_entitySteerAwayLayer = 17
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_2ax57")]
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_ra835")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ev2b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_u41fn")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 107, 4)
+width = 5.0
+
+[node name="Detector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+shape = SubResource("CircleShape2D_ghik6")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -44.0
+offset_right = 20.0
+offset_bottom = -18.0
+text = "State"
+
+[node name="Health" type="Node2D" parent="."]
+script = ExtResource("4_tuw6m")
+
+[node name="WeaponHandler" parent="." instance=ExtResource("5_xwfhe")]
+
+[node name="Fist" parent="WeaponHandler" instance=ExtResource("6_epsl6")]
+
+[connection signal="OnHurt" from="Hurtbox" to="." method="_on_hurtbox_on_hurt"]
+[connection signal="OnHealthZero" from="Health" to="." method="_on_health_on_health_zero"]
+
+[editable path="Hurtbox"]

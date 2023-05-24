@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://j2648ewboi8t"]
+
+[ext_resource type="Script" path="res://Scripts/Hitbox/Hitbox.cs" id="1_1bobn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ymup6"]
+
+[node name="Hitbox" type="Area2D" node_paths=PackedStringArray("_collisionShape2D")]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_1bobn")
+_collisionShape2D = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ymup6")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

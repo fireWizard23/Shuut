@@ -33,7 +33,7 @@ public class DashingState : BaseState<State, Player>
         _distanceTraveled = 0;
         _shouldExit = true;
         
-        await Task.Delay(100);
+        await Task.Delay(150);
         _shouldExit = false;
         ChangeState(State.Normal);
     }

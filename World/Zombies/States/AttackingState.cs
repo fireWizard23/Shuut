@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Godot;
 
 namespace Shuuut.World.Zombies.States;
 
@@ -34,6 +35,7 @@ public class AttackingState : BaseState<State, ZombieController>
         await Task.Delay(200);
         if (StateManager.CurrentStateEnum != State.Attacking)
         {
+            _canAttack = true;
             return;
         }
         weaponAnim = Parent.WeaponHandler.UseWeapon();

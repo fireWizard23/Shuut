@@ -1,25 +1,47 @@
-﻿using Godot;
+﻿using System.Xml;
+using Godot;
 using Shuuut.World;
 
 namespace Shuuut.Player.States;
 
 public class NormalState : BaseState<State, Player>
 {
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        if (!Parent.inputBuffer.IsUsed) return;
+        switch (Parent.inputBuffer.InputUsed)
+        {
+            case "dash":
+                GD.Print("DASH BUFFER!");
+                ChangeState(State.Dashing);
+                Parent.inputBuffer.Reset();
+                break;
+            case "attack":
+                ChangeState(State.Attacking);
+                Parent.inputBuffer.Reset();
+                break;
+        }
+
+    }
 
     public override void Process(double delta)
     {
         if (Input.IsActionJustPressed("attack"))
         {
+            Parent.inputBuffer.Reset();
             ChangeState(State.Attacking);
         }
 
         if (Input.IsActionJustPressed("switch_weapon_up"))
         {
+            Parent.inputBuffer.Reset();
             Parent._weaponHandler.UnequipWeapon();
         }
 
         if (Input.IsActionJustPressed("dash"))
         {
+            Parent.inputBuffer.Reset();
             ChangeState(State.Dashing);
         }
     }

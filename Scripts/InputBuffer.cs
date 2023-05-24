@@ -4,20 +4,28 @@ namespace Shuuut.Scripts;
 
 public class InputBuffer
 {
-    public bool IsUsed { get; set; }
+    public bool IsUsed => InputUsed is not null;
+    public string InputUsed { get; set; }
     public int TimeMs { get; init; }
 
     private Task toAwait;
 	
-    public async void Use()
+    public async void Use(string n)
     {
         if (IsUsed)
         {
             return;
         }
-        IsUsed = true;
+        InputUsed = n;
         toAwait = Task.Delay(TimeMs);
         await toAwait;
-        IsUsed = false;
+        InputUsed = null;
     }
+
+    public void Reset()
+    {
+        InputUsed = null;
+    }
+    
+    
 }

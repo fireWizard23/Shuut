@@ -30,7 +30,9 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 	public KnockbackInfo KnockbackInfo;
 	public Vector2 InputDirection;
 
-	protected override void BeforeReady()
+    public InputBuffer inputBuffer = new() { TimeMs = 500 };
+
+    protected override void BeforeReady()
 	{
 		StateManager = new(
 			new()
@@ -44,12 +46,20 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 		);
 	}
 
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
-		InputDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+    public override void _Process(double delta)
+    {
+	    InputDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+	    if (Input.IsActionJustPressed("dash"))
+	    {
+		    inputBuffer.Use("dash");
+	    }
 
-	}
+	    if (Input.IsActionJustPressed("attack"))
+	    {
+		    inputBuffer.Use("attack");
+	    }
+	    base._Process(delta);
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{

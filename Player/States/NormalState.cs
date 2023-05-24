@@ -13,7 +13,6 @@ public class NormalState : BaseState<State, Player>
         switch (Parent.inputBuffer.InputUsed)
         {
             case "dash":
-                GD.Print("DASH BUFFER!");
                 ChangeState(State.Dashing);
                 Parent.inputBuffer.Reset();
                 break;
@@ -29,20 +28,20 @@ public class NormalState : BaseState<State, Player>
     {
         if (Input.IsActionJustPressed("attack"))
         {
-            Parent.inputBuffer.Reset();
             ChangeState(State.Attacking);
+            Parent.InputConsumed = true;
         }
 
         if (Input.IsActionJustPressed("switch_weapon_up"))
         {
-            Parent.inputBuffer.Reset();
             Parent._weaponHandler.UnequipWeapon();
+            Parent.InputConsumed = true;
         }
 
         if (Input.IsActionJustPressed("dash"))
         {
-            Parent.inputBuffer.Reset();
             ChangeState(State.Dashing);
+            Parent.InputConsumed = true;
         }
     }
     public override void PhysicsProcess(double delta)

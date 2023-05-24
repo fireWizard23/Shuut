@@ -24,6 +24,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 	[Export] private HealthController _healthController;
 	[Export] public WeaponHandler _weaponHandler;
 	[Export(PropertyHint.Layers2DPhysics)] public uint AttackMask { get; set;}
+	[Export] public Label Label;
 
 
 	public float DashLength = Constants.Tile.Size;
@@ -31,6 +32,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 	public Vector2 InputDirection;
 
     public InputBuffer inputBuffer = new() { TimeMs = 500 };
+    public bool InputConsumed = false;
 
     protected override void BeforeReady()
 	{
@@ -48,17 +50,24 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 
     public override void _Process(double delta)
     {
+	    base._Process(delta);
 	    InputDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-	    if (Input.IsActionJustPressed("dash"))
+
+	    if (!InputConsumed)
 	    {
-		    inputBuffer.Use("dash");
+		    if (Input.IsActionJustPressed("dash"))
+		    {
+			    inputBuffer.Use("dash");
+		    }
+
+		    if (Input.IsActionJustPressed("attack"))
+		    {
+			    inputBuffer.Use("attack");
+		    }
 	    }
 
-	    if (Input.IsActionJustPressed("attack"))
-	    {
-		    inputBuffer.Use("attack");
-	    }
-	    base._Process(delta);
+	    InputConsumed = false;
+	    Label.Text = StateManager.CurrentStateEnum.ToString();
     }
 
 	public override void _PhysicsProcess(double delta)

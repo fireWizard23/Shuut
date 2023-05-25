@@ -44,12 +44,5 @@ public class NormalState : BaseState<State, Player>
             Parent.InputConsumed = true;
         }
     }
-    public override void PhysicsProcess(double delta)
-    {
-        base.PhysicsProcess(delta);
-        if (!Parent._weaponHandler.OwnerCanRotate) return;
-        var targetAngle = Parent.GlobalPosition.DirectionTo(Parent.GetGlobalMousePosition()).Angle();
-        Parent.Rotation = (float)Mathf.LerpAngle(Parent.Rotation, targetAngle, 0.5f);
 
-    }
 }

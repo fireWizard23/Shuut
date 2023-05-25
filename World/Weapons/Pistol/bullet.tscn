@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://k210sfuy3ajf"]
+
+[ext_resource type="Script" path="res://World/Weapons/Pistol/Bullet.cs" id="1_68gvd"]
+[ext_resource type="PackedScene" uid="uid://j2648ewboi8t" path="res://Scripts/Hitbox/hitbox.tscn" id="1_iwgmo"]
+[ext_resource type="Texture2D" uid="uid://c6td8l2bffsw5" path="res://Assets/bullet.png" id="2_rb6yy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bibm0"]
+radius = 2.0
+height = 22.0
+
+[node name="Bullet" type="Node2D" node_paths=PackedStringArray("_hitbox")]
+script = ExtResource("1_68gvd")
+_hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" parent="." instance=ExtResource("1_iwgmo")]
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_bibm0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("2_rb6yy")
+
+[editable path="Hitbox"]

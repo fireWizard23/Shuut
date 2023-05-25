@@ -33,6 +33,14 @@ public partial class Knife : BaseMeleeWeapon
 		}
 	}
 
+	public override void _Ready()
+	{
+		base._Ready();
+		var sprite = GetChildOrNull<Sprite2D>(0);
+		if(sprite != null ) 
+			sprite.Position = Vector2.Right.Rotated(Mathf.DegToRad(-30)) * (Handler.WeaponDistanceFromHandler + DistanceFromOwner) ;
+	}
+
 	public override async Task Sheath()
 	{
 		

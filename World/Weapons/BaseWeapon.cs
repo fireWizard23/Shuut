@@ -28,10 +28,7 @@ public abstract partial class BaseWeapon : Node2D
     public override void _Ready()
     {
         Handler = GetParent() as WeaponHandler;
-		
-        var sprite = GetChildOrNull<Sprite2D>(0);
-        if(sprite != null ) 
-            sprite.Position = Vector2.Right.Rotated(Mathf.DegToRad(-30)) * (Handler.WeaponDistanceFromHandler + DistanceFromOwner) ;
+        
         Enable(IsEquipped);
     }
 

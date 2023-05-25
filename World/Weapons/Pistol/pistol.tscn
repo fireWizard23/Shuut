@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj1q7vtavvidf"]
+
+[ext_resource type="Script" path="res://World/Weapons/Pistol/Pistol.cs" id="1_jofv4"]
+[ext_resource type="Texture2D" uid="uid://88thfje2p1ah" path="res://Assets/Characters/weapon_gun.png" id="1_l4l6m"]
+[ext_resource type="Script" path="res://Scripts/WeaponAnimationsDuration.cs" id="2_o408p"]
+[ext_resource type="Script" path="res://Scripts/RangedWeaponInfo.cs" id="3_dqm1s"]
+[ext_resource type="PackedScene" uid="uid://k210sfuy3ajf" path="res://World/Weapons/Pistol/bullet.tscn" id="4_4iwxw"]
+
+[sub_resource type="Resource" id="Resource_yqyn8"]
+script = ExtResource("2_o408p")
+AttackAnimationLength = 1.0
+RecoveryAnimationLength = 1.0
+WindupAnimationLength = 1.0
+
+[sub_resource type="Resource" id="Resource_y5nqi"]
+script = ExtResource("3_dqm1s")
+ShootCooldown = 0.25
+ShootCount = 1.0
+ShootCountInterval = 0.25
+TilesShootRange = 5.0
+WeaponAnimationsDuration = SubResource("Resource_yqyn8")
+BaseDamage = 1
+
+[node name="Pistol" type="Node2D" node_paths=PackedStringArray("muzzle")]
+script = ExtResource("1_jofv4")
+WeaponInfo = SubResource("Resource_y5nqi")
+_bullet = ExtResource("4_4iwxw")
+muzzle = NodePath("Marker2D")
+WeaponInfo = SubResource("Resource_y5nqi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_l4l6m")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(17, 0)

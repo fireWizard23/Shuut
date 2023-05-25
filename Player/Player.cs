@@ -100,6 +100,9 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 				Velocity *= 0;
 			}
 		}
+		if (!_weaponHandler.OwnerCanRotate) return;
+		var targetAngle = GlobalPosition.DirectionTo(GetGlobalMousePosition()).Angle();
+		Rotation = (float)Mathf.LerpAngle(Rotation, targetAngle, 0.5f);
 		MoveAndSlide();
 	}
 

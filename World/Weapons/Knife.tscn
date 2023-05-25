@@ -6,16 +6,16 @@
 [ext_resource type="Script" path="res://Scripts/WeaponInfo.cs" id="2_xm1m1"]
 [ext_resource type="PackedScene" uid="uid://j2648ewboi8t" path="res://Scripts/Hitbox/hitbox.tscn" id="3_xrbon"]
 
-[sub_resource type="Resource" id="Resource_57qld"]
+[sub_resource type="Resource" id="Resource_pwk7i"]
 script = ExtResource("2_s6yw5")
 AttackAnimationLength = 0.15
 RecoveryAnimationLength = 0.5
 WindupAnimationLength = 0.5
 
-[sub_resource type="Resource" id="Resource_3p8wk"]
+[sub_resource type="Resource" id="Resource_o38q4"]
 script = ExtResource("2_xm1m1")
-WeaponAnimationsDuration = SubResource("Resource_57qld")
-BaseDamage = 5
+WeaponAnimationsDuration = SubResource("Resource_pwk7i")
+BaseDamage = 10
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ti6lk"]
 radius = 3.06987
@@ -25,7 +25,7 @@ height = 26.2286
 scale = Vector2(1, 0.977239)
 script = ExtResource("1_vp4vs")
 Hitbox = NodePath("Sprite2D/Hitbox")
-WeaponInfo = SubResource("Resource_3p8wk")
+WeaponInfo = SubResource("Resource_o38q4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708

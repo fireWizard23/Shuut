@@ -5,16 +5,16 @@
 [ext_resource type="Script" path="res://Scripts/WeaponAnimationsDuration.cs" id="2_dujn2"]
 [ext_resource type="PackedScene" uid="uid://j2648ewboi8t" path="res://Scripts/Hitbox/hitbox.tscn" id="3_iyft0"]
 
-[sub_resource type="Resource" id="Resource_57qld"]
+[sub_resource type="Resource" id="Resource_77nka"]
 script = ExtResource("2_dujn2")
-AttackAnimationLength = 0.15
-RecoveryAnimationLength = 0.5
-WindupAnimationLength = 0.5
+AttackAnimationLength = 1.0
+RecoveryAnimationLength = 1.0
+WindupAnimationLength = 1.0
 
 [sub_resource type="Resource" id="Resource_j67qf"]
 script = ExtResource("2_a38t3")
-WeaponAnimationsDuration = SubResource("Resource_57qld")
-BaseDamage = 10
+WeaponAnimationsDuration = SubResource("Resource_77nka")
+BaseDamage = 5
 
 [node name="Fist" type="Node2D" node_paths=PackedStringArray("Hitbox")]
 scale = Vector2(1, 0.855422)

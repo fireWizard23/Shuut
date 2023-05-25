@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://k2ri05oga4cr"]
+[gd_scene load_steps=7 format=3 uid="uid://k2ri05oga4cr"]
 
 [ext_resource type="Script" path="res://World/Weapons/Knife.cs" id="1_vp4vs"]
 [ext_resource type="Texture2D" uid="uid://0ok4jomow4is" path="res://Assets/knife.png" id="2_aquni"]
+[ext_resource type="Script" path="res://Scripts/WeaponInfo.cs" id="2_xm1m1"]
 [ext_resource type="PackedScene" uid="uid://j2648ewboi8t" path="res://Scripts/Hitbox/hitbox.tscn" id="3_xrbon"]
+
+[sub_resource type="Resource" id="Resource_3p8wk"]
+script = ExtResource("2_xm1m1")
+AttackAnimationLength = 0.15
+RecoveryAnimationLength = 0.5
+WindupAnimationLength = 0.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ti6lk"]
 radius = 3.06987
@@ -11,6 +18,7 @@ height = 26.2286
 [node name="Knife" type="Node2D" node_paths=PackedStringArray("Hitbox")]
 scale = Vector2(1, 0.977239)
 script = ExtResource("1_vp4vs")
+WeaponInfo = SubResource("Resource_3p8wk")
 Hitbox = NodePath("Sprite2D/Hitbox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

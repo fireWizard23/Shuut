@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using Godot;
 using System.Threading.Tasks;
+using Shuut.Scripts;
 using Shuut.Scripts.Hurtbox;
 using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
 
@@ -18,7 +19,7 @@ public static class Extensions {
 
 public partial class Knife : BaseMeleeWeapon
 {
-
+	[Export] public WeaponInfo WeaponInfo;
 	private bool _isAttacking;
 
 	private Tween _currentTween;
@@ -62,7 +63,7 @@ public partial class Knife : BaseMeleeWeapon
 		origRot = Rotation;
 		await CurrentAnimation.WaitAsync();
 		var windup = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetParallel();
-		windup.TweenProperty(this, "rotation", Rotation-Mathf.DegToRad(90), 0.5f);
+		windup.TweenProperty(this, "rotation", Rotation-Mathf.DegToRad(90), WeaponInfo.WindupAnimationLength);
 		_currentTween = windup;
 		WeaponState = WeaponState.Windup;
 		
@@ -78,7 +79,7 @@ public partial class Knife : BaseMeleeWeapon
 		Handler.OwnerCanMove = false;
 		Handler.OwnerCanRotate = false;
 		Hitbox.TurnOn();
-		var attackSpeed = 0.15f / 2;
+		var attackSpeed = WeaponInfo.AttackAnimationLength / 2;
 		var attack1 = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut).SetParallel();
 		attack1.TweenProperty(this, "rotation", origRot, attackSpeed).SetDelay(0.15f);
 		await ToSignal(attack1, Tween.SignalName.Finished);
@@ -99,7 +100,7 @@ public partial class Knife : BaseMeleeWeapon
 		// Recovery
 		WeaponState = WeaponState.Recovery;
 		var recovery = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut).SetParallel();
-		recovery.TweenProperty(this, "rotation", origRot, 0.5f);
+		recovery.TweenProperty(this, "rotation", origRot, WeaponInfo.RecoveryAnimationLength);
 		_currentTween = recovery;
 		s = ToSignal(recovery, Tween.SignalName.Finished);
 		await Task.WhenAny( s.ToTask(), CancelTask.Task );

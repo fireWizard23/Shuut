@@ -19,7 +19,6 @@ public static class Extensions {
 
 public partial class Knife : BaseMeleeWeapon
 {
-	[Export] public WeaponInfo WeaponInfo;
 	private bool _isAttacking;
 
 	private Tween _currentTween;
@@ -131,11 +130,7 @@ public partial class Knife : BaseMeleeWeapon
 
 	private void _on_hitbox_on_hitbox_hit(Hurtbox hurtbox)
 	{
-		hurtbox.Hurt(new()
-		{
-			Damage =  WeaponInfo.BaseDamage + Handler.Parent.BaseDamage,
-			Source =  this
-		});
+		
 	}
 	
 }

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 using Shuut.Scripts;
+using Shuut.Scripts.Hitbox;
 using Shuut.Scripts.Hurtbox;
 using Shuut.World.Weapons;
 using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
@@ -48,7 +49,7 @@ public partial class Fist : BaseMeleeWeapon
 		{
 			if (res["collider"].As<Hurtbox>() is { } hurtbox)
 			{
-				hurtbox.Hurt(new(){ Damage = 10, Source = this});
+				Hitbox.EmitSignal(Hitbox.SignalName.OnHitboxHit, hurtbox);
 			}
 		}
 

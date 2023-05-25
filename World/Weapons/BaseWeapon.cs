@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Godot;
+using Shuut.Scripts;
 
 namespace Shuut.World.Weapons;
 
@@ -16,6 +17,7 @@ public enum WeaponState
 public abstract partial class BaseWeapon : Node2D
 {
     [Export] protected float DistanceFromOwner = 0;
+    [Export] public WeaponInfo WeaponInfo;
     protected WeaponHandler Handler;
     protected bool IsEquipped = false;
 

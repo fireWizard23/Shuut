@@ -23,6 +23,7 @@ _healthController = NodePath("Health")
 _weaponHandler = NodePath("WeaponHandler")
 AttackMask = 9
 Label = NodePath("State")
+BaseDamage = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, 0)

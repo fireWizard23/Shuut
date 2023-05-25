@@ -19,8 +19,8 @@ height = 26.2286
 [node name="Knife" type="Node2D" node_paths=PackedStringArray("Hitbox")]
 scale = Vector2(1, 0.977239)
 script = ExtResource("1_vp4vs")
-WeaponInfo = SubResource("Resource_3p8wk")
 Hitbox = NodePath("Sprite2D/Hitbox")
+WeaponInfo = SubResource("Resource_3p8wk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708
@@ -36,7 +36,5 @@ position = Vector2(6.95076, -1.02328)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ti6lk")
 disabled = true
-
-[connection signal="OnHitboxHit" from="Sprite2D/Hitbox" to="." method="_on_hitbox_on_hitbox_hit"]
 
 [editable path="Sprite2D/Hitbox"]

@@ -28,6 +28,7 @@ Detector = NodePath("Detector")
 StateLabel = NodePath("Label")
 HealthController = NodePath("Health")
 WeaponHandler = NodePath("WeaponHandler")
+BaseDamage = 20
 AttackMask = 5
 _entitySteerAwayLayer = 17
 

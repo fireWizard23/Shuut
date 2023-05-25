@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfceleysjka87"]
+[gd_scene load_steps=5 format=3 uid="uid://cfceleysjka87"]
 
 [ext_resource type="Script" path="res://World/Weapons/Fist/Fist.cs" id="1_qfwnw"]
+[ext_resource type="Script" path="res://Scripts/WeaponInfo.cs" id="2_a38t3"]
+[ext_resource type="PackedScene" uid="uid://j2648ewboi8t" path="res://Scripts/Hitbox/hitbox.tscn" id="3_iyft0"]
 
-[node name="Fist" type="Node2D"]
+[sub_resource type="Resource" id="Resource_j67qf"]
+script = ExtResource("2_a38t3")
+AttackAnimationLength = 1.0
+RecoveryAnimationLength = 1.0
+WindupAnimationLength = 1.0
+BaseDamage = 10
+
+[node name="Fist" type="Node2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(1, 0.855422)
 script = ExtResource("1_qfwnw")
+Hitbox = NodePath("Hitbox")
+WeaponInfo = SubResource("Resource_j67qf")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_iyft0")]

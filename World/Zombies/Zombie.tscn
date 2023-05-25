@@ -74,5 +74,6 @@ script = ExtResource("4_tuw6m")
 [node name="Fist" parent="WeaponHandler" instance=ExtResource("6_epsl6")]
 
 [connection signal="OnHurt" from="Hurtbox" to="." method="_on_hurtbox_on_hurt"]
+[connection signal="OnHealthZero" from="Health" to="." method="_on_health_on_health_zero"]
 
 [editable path="Hurtbox"]

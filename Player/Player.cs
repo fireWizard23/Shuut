@@ -10,6 +10,11 @@ using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
 
 namespace Shuut.Player;
 
+public interface IDamager
+{
+	public int BaseDamage { get; set; }
+}
+
 public enum State
 {
 	Normal,
@@ -18,7 +23,7 @@ public enum State
 	Dashing,
 }
 
-public partial class Player : StatefulEntity<State, Player>, IAttacker
+public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 {
 	[Export]
 	public float Speed = 100.0f;
@@ -26,6 +31,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 	[Export] public WeaponHandler _weaponHandler;
 	[Export(PropertyHint.Layers2DPhysics)] public uint AttackMask { get; set;}
 	[Export] public Label Label;
+	[Export] public int BaseDamage { get; set; } = 1;
 
 
 	public float DashLength = Constants.Tile.Size;

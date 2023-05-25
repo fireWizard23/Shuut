@@ -1,6 +1,7 @@
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using Shuut.Player;
 using Shuut.Scripts;
 using Shuut.Scripts.Hurtbox;
 using Shuut.World.Weapons;
@@ -14,7 +15,7 @@ using StateManager = StateManager<State, ZombieController>;
 
 public interface IAttacker
 {
-	public uint AttackMask { get; set; }
+	public uint AttackMask { get; set; }	
 }
 
 public enum State
@@ -27,7 +28,7 @@ public enum State
 }
 
 
-public partial class ZombieController : StatefulEntity<State, ZombieController>, IAttacker
+public partial class ZombieController : StatefulEntity<State, ZombieController>, IAttacker, IDamager
 {
 
 	[Export] public float MovementSpeed { get; private set; } = 100;
@@ -37,6 +38,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	[Export] public Label StateLabel;
 	[Export] public HealthController HealthController;
 	[Export] public WeaponHandler WeaponHandler;
+	[Export] public int BaseDamage { get; set; } = 1;
 	
 	[Export(PropertyHint.Layers2DPhysics)]  public uint AttackMask { get; set; }
 

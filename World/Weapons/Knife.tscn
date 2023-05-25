@@ -10,6 +10,7 @@ script = ExtResource("2_xm1m1")
 AttackAnimationLength = 0.15
 RecoveryAnimationLength = 0.5
 WindupAnimationLength = 0.5
+BaseDamage = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ti6lk"]
 radius = 3.06987

@@ -133,7 +133,7 @@ public partial class Knife : BaseMeleeWeapon
 	{
 		hurtbox.Hurt(new()
 		{
-			Damage =  10,
+			Damage =  WeaponInfo.BaseDamage + Handler.Parent.BaseDamage,
 			Source =  this
 		});
 	}

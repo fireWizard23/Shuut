@@ -1,5 +1,7 @@
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Godot;
+using Shuut.Player;
 using Shuut.World.Zombies;
 
 namespace Shuut.World.Weapons;
@@ -25,11 +27,14 @@ public partial class WeaponHandler : Node2D
 	public float WeaponDistanceFromHandler => _weaponDistanceFromHandler * Constants.Tile.Size;
 
 	private BaseWeapon _knife;
+	public IDamager Parent;
+	
 
 	public override void _Ready()
 	{
 		base._Ready();
 		_knife = GetChild<BaseWeapon>(0);
+		Parent = GetParent() as IDamager;;
 		_knife.SetAttackMask(
 			((IAttacker)GetParent()).AttackMask );
 		_knife.Sheath();

@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 using Color = Godot.Color;
 
-namespace Shuuut.World;
+namespace Shuut.World;
 
 public partial class Pathfinding : Node
 {

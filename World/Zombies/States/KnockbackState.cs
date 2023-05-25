@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Godot;
 
-namespace Shuuut.World.Zombies.States;
+namespace Shuut.World.Zombies.States;
 
 public class KnockbackState : BaseState<State, ZombieController>
 {

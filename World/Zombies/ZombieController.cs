@@ -1,12 +1,13 @@
 using System.Linq;
 using Godot;
 using Godot.Collections;
-using Shuuut.Scripts;
-using Shuuut.Scripts.Hurtbox;
-using Shuuut.World.Weapons;
-using Shuuut.World.Zombies.States;
+using Shuut.Scripts;
+using Shuut.Scripts.Hurtbox;
+using Shuut.World.Weapons;
+using Shuut.World.Zombies.States;
+using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
 
-namespace Shuuut.World.Zombies;
+namespace Shuut.World.Zombies;
 
 
 using StateManager = StateManager<State, ZombieController>;

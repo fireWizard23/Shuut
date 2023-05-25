@@ -1,8 +1,9 @@
 ﻿using Godot;
-using Shuuut.Scripts.Hitbox;
+using Shuut.Scripts.Hitbox;
+using Hitbox = Shuut.Scripts.Hitbox.Hitbox;
 
 
-namespace Shuuut.World.Weapons;
+namespace Shuut.World.Weapons;
 
 public abstract partial class BaseMeleeWeapon : BaseWeapon
 {

@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Shuuut.World.Zombies.States;
+namespace Shuut.World.Zombies.States;
 
 public class WanderingState : BaseState<State, ZombieController> 
 {

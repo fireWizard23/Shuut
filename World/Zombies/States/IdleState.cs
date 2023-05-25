@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Shuuut.World.Zombies.States;
+namespace Shuut.World.Zombies.States;
 
 public class IdleState : BaseState<State, ZombieController>
 {

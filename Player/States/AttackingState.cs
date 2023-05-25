@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-using Godot;
-using Shuuut.Scripts;
-using Shuuut.World;
+﻿using Shuut.Player;
+using Shuut.World;
 
-namespace Shuuut.Player.States;
+namespace Shuut.Player.States;
 
 public class AttackingState : BaseState<State, Player>
 {

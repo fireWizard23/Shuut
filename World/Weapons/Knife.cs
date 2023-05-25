@@ -1,8 +1,9 @@
 using Godot;
 using System.Threading.Tasks;
-using Shuuut.Scripts.Hurtbox;
+using Shuut.Scripts.Hurtbox;
+using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
 
-namespace Shuuut.World.Weapons;
+namespace Shuut.World.Weapons;
 
 public partial class Knife : BaseMeleeWeapon
 {

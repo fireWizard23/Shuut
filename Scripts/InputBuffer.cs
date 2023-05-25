@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Shuuut.Scripts;
+namespace Shuut.Scripts;
 
 public class InputBuffer
 {

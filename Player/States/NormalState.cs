@@ -1,8 +1,8 @@
-﻿using System.Xml;
-using Godot;
-using Shuuut.World;
+﻿using Godot;
+using Shuut.Player;
+using Shuut.World;
 
-namespace Shuuut.Player.States;
+namespace Shuut.Player.States;
 
 public class NormalState : BaseState<State, Player>
 {

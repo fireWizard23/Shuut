@@ -1,7 +1,7 @@
 ﻿using Godot;
 using Godot.Collections;
 
-namespace Shuuut.World.Zombies.States;
+namespace Shuut.World.Zombies.States;
 
 public class DetectingState : BaseState<State, ZombieController>
 {

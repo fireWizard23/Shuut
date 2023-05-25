@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Shuuut.Scripts.Hitbox;
+namespace Shuut.Scripts.Hitbox;
 
 public partial class Hitbox : Area2D
 {
@@ -23,7 +23,7 @@ public partial class Hitbox : Area2D
     {
         if (area is Hurtbox.Hurtbox hurtbox)
         {
-            EmitSignal(SignalName.OnHitboxHit, hurtbox);
+            EmitSignal(Shuut.Scripts.Hitbox.Hitbox.SignalName.OnHitboxHit, hurtbox);
         }
     }
 

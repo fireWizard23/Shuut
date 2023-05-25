@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace Shuuut.World;
+namespace Shuut.World;
 
 public class StateManager<T, K> where T : struct, Enum where K : Node
 {

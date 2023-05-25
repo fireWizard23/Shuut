@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Godot;
 
-namespace Shuuut.World.Weapons;
+namespace Shuut.World.Weapons;
 
 public abstract partial class BaseWeapon : Node2D
 {

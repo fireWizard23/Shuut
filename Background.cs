@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Shuuut;
+namespace Shuut;
 
 public partial class Background : TileMap
 {

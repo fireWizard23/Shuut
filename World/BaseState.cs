@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-namespace Shuuut.World;
+namespace Shuut.World;
 
 public class BaseState<T, K> where T : struct, Enum where K : Node
 {

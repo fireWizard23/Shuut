@@ -1,9 +1,10 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
-using Shuuut.Scripts;
-using Shuuut.Scripts.Hurtbox;
-using Shuuut.World.Weapons;
+using Shuut.Scripts;
+using Shuut.Scripts.Hurtbox;
+using Shuut.World.Weapons;
+using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
 
 public partial class Fist : BaseMeleeWeapon
 {

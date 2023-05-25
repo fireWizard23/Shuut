@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Godot;
-using Shuuut.World.Zombies;
+using Shuut.World.Zombies;
 
-namespace Shuuut.World.Weapons;
+namespace Shuut.World.Weapons;
 
 
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using Godot;
-using Shuuut.World;
-using Shuuut.World.Zombies;
+using Shuut.World;
+using Shuut.World.Zombies;
 
-namespace Shuuut.Scripts;
+namespace Shuut.Scripts;
 
 public partial class StatefulEntity<T, K> : CharacterBody2D where T: struct, Enum where K : Node
 {

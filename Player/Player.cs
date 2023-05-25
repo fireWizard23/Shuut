@@ -1,13 +1,14 @@
 using Godot;
-using Shuuut.Player.States;
-using Shuuut.Scripts;
-using Shuuut.Scripts.Hurtbox;
-using Shuuut.World;
-using Shuuut.World.Weapons;
-using Shuuut.World.Zombies;
+using Shuut.Player.States;
+using Shuut;
+using Shuut.Scripts;
+using Shuut.Scripts.Hurtbox;
+using Shuut.World;
+using Shuut.World.Weapons;
+using Shuut.World.Zombies;
+using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
 
-
-namespace Shuuut.Player;
+namespace Shuut.Player;
 
 public enum State
 {

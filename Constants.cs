@@ -1,4 +1,4 @@
-﻿namespace Shuuut;
+﻿namespace Shuut;
 
 public static class Constants
 {

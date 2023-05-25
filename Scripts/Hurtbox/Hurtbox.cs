@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Shuuut.Scripts.Hurtbox;
+namespace Shuut.Scripts.Hurtbox;
 
 public partial class DamageInfo : Godot.GodotObject
 {
@@ -15,7 +15,7 @@ public partial class Hurtbox : Area2D
 
     public void Hurt(DamageInfo d)
     {
-        EmitSignal(SignalName.OnHurt, d);
+        EmitSignal(Shuut.Scripts.Hurtbox.Hurtbox.SignalName.OnHurt, d);
     }
 
 }

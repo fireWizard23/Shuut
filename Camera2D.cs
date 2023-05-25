@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Shuuut;
+namespace Shuut;
 
 public partial class Camera2D : Godot.Camera2D
 {

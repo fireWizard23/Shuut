@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Shuuut.World.Zombies.States;
+namespace Shuut.World.Zombies.States;
 
 public class ChasingState : BaseState<State, ZombieController>
 {

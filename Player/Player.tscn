@@ -51,5 +51,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [connection signal="OnHurt" from="WeaponHandler/Hurtbox" to="." method="_on_hurtbox_on_hurt"]
+[connection signal="OnHealthZero" from="Health" to="." method="_on_health_on_health_zero"]
 
 [editable path="WeaponHandler/Hurtbox"]

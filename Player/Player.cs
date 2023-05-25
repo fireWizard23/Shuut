@@ -107,6 +107,9 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 		};
 		if(StateManager.CurrentStateEnum == State.Attacking) 
 			_weaponHandler.Cancel();
+		if(inputBuffer is {InputUsed: "dash"}) 
+			inputBuffer.Reset();
+		
 		StateManager.ChangeState(State.InKnockback);
 		damageInfo.Dispose();
 	}

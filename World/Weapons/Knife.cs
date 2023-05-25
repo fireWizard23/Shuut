@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
 using Godot;
 using System.Threading.Tasks;
 using Shuut.Scripts.Hurtbox;
@@ -5,16 +8,26 @@ using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
 
 namespace Shuut.World.Weapons;
 
+public static class Extensions {
+	public static Task ToTask(this Godot.SignalAwaiter signalAwaiter)
+	{
+		var task = Task.Run(async () => await signalAwaiter);
+		return task;
+	}
+}
+
 public partial class Knife : BaseMeleeWeapon
 {
 
 	private bool _isAttacking;
 
-
+	private Tween _currentTween;
+	public TaskCompletionSource CancelTask = new TaskCompletionSource();
+	private float origRot;
 
 	public override async Task Use()
 	{
-		if (CurrentAnimation.CurrentCount != 0  && !_isAttacking)
+		if (WeaponState == WeaponState.Idle)
 		{
 			await Attack();
 		}
@@ -46,16 +59,22 @@ public partial class Knife : BaseMeleeWeapon
 	{
 		_isAttacking = true;
 
-		var origRot = Rotation;
+		origRot = Rotation;
 		await CurrentAnimation.WaitAsync();
 		var windup = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetParallel();
-		windup.TweenProperty(this, "rotation", Rotation-Mathf.DegToRad(90), 0.15f);
+		windup.TweenProperty(this, "rotation", Rotation-Mathf.DegToRad(90), 0.5f);
+		_currentTween = windup;
+		WeaponState = WeaponState.Windup;
 		
-		await ToSignal(windup, Tween.SignalName.Finished);
-		
+		var s = ToSignal(windup, Tween.SignalName.Finished);
+		await Task.WhenAny( s.ToTask(), CancelTask.Task);
+		if (WeaponState == WeaponState.Idle)
+		{
+			return;
+		}	
 		
 		// Attack animation
-
+		WeaponState = WeaponState.Attacking;
 		Handler.OwnerCanMove = false;
 		Handler.OwnerCanRotate = false;
 		Hitbox.TurnOn();
@@ -78,17 +97,36 @@ public partial class Knife : BaseMeleeWeapon
 		Handler.OwnerCanRotate = true;
 
 		// Recovery
+		WeaponState = WeaponState.Recovery;
 		var recovery = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut).SetParallel();
 		recovery.TweenProperty(this, "rotation", origRot, 0.5f);
+		_currentTween = recovery;
+		s = ToSignal(recovery, Tween.SignalName.Finished);
+		await Task.WhenAny( s.ToTask(), CancelTask.Task );
 		
-		await ToSignal(recovery, Tween.SignalName.Finished);
-		
-		
+		if (WeaponState == WeaponState.Idle)
+		{
+			return;
+		}
+		WeaponState = WeaponState.Idle;
 		CurrentAnimation.Release();
 		_isAttacking = false;
 		Rotation = 0;
 	}
 
+	public override async Task OnCancel()
+	{
+		if (WeaponState != WeaponState.Attacking)
+		{
+			WeaponState = WeaponState.Idle;
+			CancelTask.TrySetResult();
+			_currentTween.Stop();
+			_currentTween.Kill();
+			Rotation = origRot;
+			CancelTask = new();
+			CurrentAnimation.Release();
+		}
+	}
 
 	private void _on_hitbox_on_hitbox_hit(Hurtbox hurtbox)
 	{

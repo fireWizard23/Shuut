@@ -4,6 +4,15 @@ using Godot;
 
 namespace Shuut.World.Weapons;
 
+
+public enum WeaponState
+{
+    Idle,
+    Windup,
+    Attacking,
+    Recovery,
+}
+
 public abstract partial class BaseWeapon : Node2D
 {
     [Export] protected float DistanceFromOwner = 0;
@@ -11,6 +20,7 @@ public abstract partial class BaseWeapon : Node2D
     protected bool IsEquipped = false;
 
     protected readonly SemaphoreSlim CurrentAnimation = new(1);
+    public WeaponState WeaponState = WeaponState.Idle;
 
     
     public override void _Ready()
@@ -31,7 +41,7 @@ public abstract partial class BaseWeapon : Node2D
     public abstract  Task UnSheath();
 
     public abstract Task Use();
-    
+    public abstract Task OnCancel();
     
     
 

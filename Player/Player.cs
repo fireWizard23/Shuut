@@ -105,6 +105,8 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
 			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
 		};
+		if(StateManager.CurrentStateEnum == State.Attacking) 
+			_weaponHandler.Cancel();
 		StateManager.ChangeState(State.InKnockback);
 		damageInfo.Dispose();
 	}

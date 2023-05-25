@@ -62,6 +62,11 @@ public partial class WeaponHandler : Node2D
 				break;
 		}
 	}
+
+	public void Cancel()
+	{
+		_knife.OnCancel();
+	}
 	
 	
 

@@ -15,4 +15,6 @@ public abstract partial class BaseMeleeWeapon : BaseWeapon
             Hitbox.CollisionMask = mask;
     }
     
+    
+    
 }

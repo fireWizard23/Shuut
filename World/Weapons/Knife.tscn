@@ -1,15 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://k2ri05oga4cr"]
+[gd_scene load_steps=9 format=3 uid="uid://k2ri05oga4cr"]
 
 [ext_resource type="Script" path="res://World/Weapons/Knife.cs" id="1_vp4vs"]
 [ext_resource type="Texture2D" uid="uid://0ok4jomow4is" path="res://Assets/knife.png" id="2_aquni"]
+[ext_resource type="Script" path="res://Scripts/WeaponAnimationsDuration.cs" id="2_s6yw5"]
 [ext_resource type="Script" path="res://Scripts/WeaponInfo.cs" id="2_xm1m1"]
 [ext_resource type="PackedScene" uid="uid://j2648ewboi8t" path="res://Scripts/Hitbox/hitbox.tscn" id="3_xrbon"]
 
-[sub_resource type="Resource" id="Resource_3p8wk"]
-script = ExtResource("2_xm1m1")
+[sub_resource type="Resource" id="Resource_57qld"]
+script = ExtResource("2_s6yw5")
 AttackAnimationLength = 0.15
 RecoveryAnimationLength = 0.5
 WindupAnimationLength = 0.5
+
+[sub_resource type="Resource" id="Resource_3p8wk"]
+script = ExtResource("2_xm1m1")
+WeaponAnimationsDuration = SubResource("Resource_57qld")
 BaseDamage = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ti6lk"]

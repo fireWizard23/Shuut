@@ -125,7 +125,9 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 
 	private void _on_health_on_health_zero()
 	{
-		QueueFree();	
+		// QueueFree();
+		// Hide();
+		GetTree().ReloadCurrentScene();
 	}
 
 }

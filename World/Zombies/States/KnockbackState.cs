@@ -25,6 +25,6 @@ public class KnockbackState : BaseState<State, ZombieController>
         _shouldExit = true;
         await Task.Delay(250);
         _shouldExit = false;
-        ChangeState(State.Idle);
+        ChangeState(StateManager.PreviousStateEnum ??  State.Wandering );
     }
 }

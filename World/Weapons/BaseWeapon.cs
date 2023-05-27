@@ -44,9 +44,27 @@ public abstract partial class BaseWeapon : Node2D
     public abstract void SetAttackMask(uint mask);
 
 
+    public virtual async Task Sheath()
+    {
+		
+        await CurrentAnimation.WaitAsync();
+        var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetParallel();
+        tween.TweenProperty(this, "modulate:a", 0, 0.25f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        CurrentAnimation.Release();
+        Enable(false);
+    }
 
-    public abstract  Task Sheath();
-    public abstract  Task UnSheath();
+    public virtual async Task UnSheath()
+    {
+        await CurrentAnimation.WaitAsync();
+
+        var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetParallel();
+        tween.TweenProperty(this, "modulate:a", 1, 0.25f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        CurrentAnimation.Release();
+        Enable();
+    }
 
     public abstract Task Use();
     public abstract Task OnCancel();

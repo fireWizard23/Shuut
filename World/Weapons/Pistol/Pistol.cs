@@ -26,14 +26,6 @@ public partial class Pistol : BaseWeapon
 		this.mask = mask;
 	}
 
-	public override async Task Sheath()
-	{
-	}
-
-	public override async Task UnSheath()
-	{
-	}
-
 	public override async Task Use()
 	{
 		if (!_canShoot)

@@ -41,27 +41,7 @@ public partial class Knife : BaseMeleeWeapon
 			sprite.Position = Vector2.Right.Rotated(Mathf.DegToRad(-30)) * (Handler.WeaponDistanceFromHandler + DistanceFromOwner) ;
 	}
 
-	public override async Task Sheath()
-	{
-		
-		await CurrentAnimation.WaitAsync();
-		var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetParallel();
-		tween.TweenProperty(this, "modulate:a", 0, 0.25f);
-		await ToSignal(tween, Tween.SignalName.Finished);
-		CurrentAnimation.Release();
-		Enable(false);
-	}
 
-	public override async Task UnSheath()
-	{
-		await CurrentAnimation.WaitAsync();
-
-		var tween = GetTree().CreateTween().BindNode(this).SetTrans(Tween.TransitionType.Linear).SetParallel();
-		tween.TweenProperty(this, "modulate:a", 1, 0.25f);
-		await ToSignal(tween, Tween.SignalName.Finished);
-		CurrentAnimation.Release();
-		Enable();
-	}
 
 	async Task Attack()
 	{

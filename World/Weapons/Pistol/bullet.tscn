@@ -10,6 +10,7 @@ height = 22.0
 
 [node name="Bullet" type="Node2D" node_paths=PackedStringArray("_hitbox")]
 script = ExtResource("1_68gvd")
+colliderMask = 1
 _hitbox = NodePath("Hitbox")
 
 [node name="Hitbox" parent="." instance=ExtResource("1_iwgmo")]

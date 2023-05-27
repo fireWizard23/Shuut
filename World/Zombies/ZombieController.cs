@@ -184,6 +184,8 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
 		}; 
 		ChangeState(State.InKnockback);
+		
+		Target ??= (Node2D)damageInfo.Source;
 		damageInfo.Dispose();
 	}
 

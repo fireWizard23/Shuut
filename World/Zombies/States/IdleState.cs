@@ -4,7 +4,7 @@ namespace Shuut.World.Zombies.States;
 
 public class IdleState : BaseState<State, ZombieController>
 {
-    
+
     public override async void OnEnter()
     {
         base.OnEnter();
@@ -14,14 +14,19 @@ public class IdleState : BaseState<State, ZombieController>
             ChangeState(State.Wandering);
             return;
         }
+
         if (Parent.Target != null)
         {
             ChangeState(State.Chasing);
             return;
         }
 
-        if (StateManager.PreviousStateEnum is not (State.Wandering or State.Chasing)) return;
-        
+        if (StateManager.PreviousStateEnum is not (State.Wandering or State.Chasing))
+        {
+            ChangeState(State.Wandering);
+            return;
+        }
+
         await Task.Delay(Parent.Rng.RandiRange(1000, 2000));
         if (StateManager.CurrentStateEnum != State.Idle) return;
         ChangeState(State.Wandering);

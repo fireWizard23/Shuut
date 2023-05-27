@@ -9,6 +9,8 @@ public partial class Hitbox : Area2D
 
     [Export] private CollisionShape2D _collisionShape2D;
 
+    public CollisionShape2D CollisionShape2D => _collisionShape2D;
+    
     public void TurnOff()
     {
         _collisionShape2D.Disabled = true;
@@ -27,5 +29,6 @@ public partial class Hitbox : Area2D
         }
     }
 
-    
+
+
 }

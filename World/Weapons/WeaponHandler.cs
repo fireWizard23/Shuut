@@ -26,31 +26,31 @@ public partial class WeaponHandler : Node2D
 
 	public float WeaponDistanceFromHandler => _weaponDistanceFromHandler * Constants.Tile.Size;
 
-	private BaseWeapon _knife;
+	private BaseWeapon _weapon;
 	public IDamager Parent;
 	
 
 	public override void _Ready()
 	{
 		base._Ready();
-		_knife = GetChild<BaseWeapon>(0);
+		_weapon = GetChild<BaseWeapon>(0);
 		Parent = GetParent() as IDamager;;
-		_knife.Setup(Parent);
-		_knife.SetAttackMask(
+		_weapon.Setup(Parent);
+		_weapon.SetAttackMask(
 			((IAttacker)GetParent()).AttackMask );
-		_knife.Sheath();
+		_weapon.Sheath();
 		EquipWeapon();
 	}
 
 	public async Task EquipWeapon()
 	{
-		await _knife.OnEquip();
+		await _weapon.OnEquip();
 	}
 
 	public async void UnequipWeapon()
 	{
-		await _knife.Sheath();
-		await _knife.OnUnequip();
+		await _weapon.Sheath();
+		await _weapon.OnUnequip();
 		CurrentState = State.InSheath;
 	}
 
@@ -61,17 +61,17 @@ public partial class WeaponHandler : Node2D
 			case State.InSheath:
 				await EquipWeapon();
 				CurrentState = State.Ready;
-				await _knife.UnSheath();
+				await _weapon.UnSheath();
 				break;
 			case State.Ready:
-				await _knife.Use();
+				await _weapon.Use();
 				break;
 		}
 	}
 
 	public void Cancel()
 	{
-		_knife.OnCancel();
+		_weapon.OnCancel();
 	}
 	
 	

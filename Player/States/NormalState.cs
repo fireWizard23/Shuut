@@ -13,12 +13,12 @@ public class NormalState : BaseState<State, Player>
         switch (Parent.inputBuffer.InputUsed)
         {
             case "dash":
-                ChangeState(State.Dashing);
                 Parent.inputBuffer.Reset();
+                ChangeState(State.Dashing);
                 break;
             case "attack":
+                Parent.inputBuffer.Reset(); 
                 ChangeState(State.Attacking);
-                Parent.inputBuffer.Reset();
                 break;
         }
 

@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Data.Common;
+using Shuut.Player;
 using Shuut.Scripts.Hitbox;
 using Shuut.Scripts.Hurtbox;
 
@@ -11,6 +13,7 @@ public partial class Bullet : Node2D
     private Vector2 direction;
     public int damage;
     private PhysicsDirectSpaceState2D space;
+    private IDamager damager;
 
     public override void _Ready()
     {
@@ -21,17 +24,18 @@ public partial class Bullet : Node2D
 
     private void HitboxOnOnHitboxHit(Hurtbox hurtbox)
     {
-        hurtbox.Hurt(new DamageInfo() {Damage =  damage, Source = this});
+        hurtbox.Hurt(new DamageInfo() {Damage =  damage, Source = damager});
         QueueFree();
     }
 
-    public void Setup(Vector2 position, Vector2 direction,uint mask, int damage)
+    public void Setup(Vector2 position, Vector2 direction,uint mask, int damage, IDamager damager)
     {
         _hitbox.CollisionMask = mask;
         GlobalPosition = position;
         this.direction = direction;
         this.damage = damage;
         GlobalRotation = this.direction.Angle();
+        this.damager = damager;
     }
 
     public override void _PhysicsProcess(double delta)

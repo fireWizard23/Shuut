@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Godot;
+using Shuut.Player;
 using Shuut.Scripts;
 
 namespace Shuut.World.Weapons;
@@ -22,15 +23,23 @@ public abstract partial class BaseWeapon : Node2D
     protected bool IsEquipped = false;
 
     protected readonly SemaphoreSlim CurrentAnimation = new(1);
+    
+    public IDamager WeaponOwner { get; set; }
+
     public WeaponState WeaponState = WeaponState.Idle;
 
     
     public override void _Ready()
     {
         Handler = GetParent() as WeaponHandler;
-        
         Enable(IsEquipped);
     }
+
+    public void Setup(IDamager weaponOwner)
+    {
+        this.WeaponOwner = weaponOwner;
+    }
+
 
     public abstract void SetAttackMask(uint mask);
 

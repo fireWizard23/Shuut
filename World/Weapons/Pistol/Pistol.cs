@@ -1,8 +1,11 @@
 using Godot;
 using System;
+using System.Numerics;
 using System.Threading.Tasks;
+using Shuut.Player;
 using Shuut.Scripts;
 using Shuut.World.Weapons;
+using Vector2 = Godot.Vector2;
 
 public partial class Pistol : BaseWeapon
 {
@@ -45,13 +48,13 @@ public partial class Pistol : BaseWeapon
 			GetTree().Root.AddChild(s);
 			if (s is Bullet bullet)
 			{
-				bullet.CallDeferred
+				bullet.Setup
 				(
-					nameof(bullet.Setup), 
-					muzzle.GlobalPosition, 
-					Vector2.Right.Rotated(GlobalRotation),
+					muzzle.GlobalPosition,
+					Vector2.Right.Rotated((GlobalRotation)),
 					mask,
-					Handler.Parent.BaseDamage + WeaponInfo.BaseDamage
+					WeaponOwner.BaseDamage + WeaponInfo.BaseDamage,
+					WeaponOwner
 				);
 			}
 			await Task.Delay((int)(WeaponInfo.ShootCountInterval * 1000));

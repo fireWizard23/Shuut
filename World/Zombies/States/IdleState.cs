@@ -1,4 +1,6 @@
-﻿using Godot;
+﻿using System;
+using Godot;
+using Shuut.Scripts;
 
 namespace Shuut.World.Zombies.States;
 
@@ -21,14 +23,9 @@ public class IdleState : BaseState<State, ZombieController>
             return;
         }
 
-        if (StateManager.PreviousStateEnum is not (State.Wandering or State.Chasing))
-        {
-            ChangeState(State.Wandering);
+        await Parent.CreateTimer(TimeSpan.FromMilliseconds(Parent.Rng.RandiRange(1000, 2000)));
+        if (StateManager.CurrentStateEnum != State.Idle) 
             return;
-        }
-
-        await Parent.ToSignal(Parent.GetTree().CreateTimer(Parent.Rng.RandiRange(1000, 2000)), SceneTreeTimer.SignalName.Timeout);
-        if (StateManager.CurrentStateEnum != State.Idle) return;
         ChangeState(State.Wandering);
 
 

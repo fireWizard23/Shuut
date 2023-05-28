@@ -119,9 +119,5 @@ public partial class Knife : BaseMeleeWeapon
 		}
 	}
 
-	private void _on_hitbox_on_hitbox_hit(Hurtbox hurtbox)
-	{
-		
-	}
 	
 }

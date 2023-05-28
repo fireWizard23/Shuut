@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Shuut.World;
+namespace Shuut.Scripts;
 
 
 public struct KnockbackInfo

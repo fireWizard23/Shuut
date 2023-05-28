@@ -1,4 +1,5 @@
 ﻿using Godot;
+using Shuut.Scripts;
 using Shuut.World;
 using Shuut.World.Weapons;
 

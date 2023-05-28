@@ -1,5 +1,6 @@
 using Godot;
 using Shuut.Player;
+using Shuut.Scripts;
 using Shuut.Scripts.Hitbox;
 using Shuut.Scripts.Hurtbox;
 

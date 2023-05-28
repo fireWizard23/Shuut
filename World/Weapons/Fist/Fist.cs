@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Godot;
+using Shuut.Scripts;
 using Shuut.Scripts.Hitbox;
 using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
 

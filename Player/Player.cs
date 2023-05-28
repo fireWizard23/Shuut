@@ -8,12 +8,6 @@ using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
 
 namespace Shuut.Player;
 
-public interface IDamager
-{
-	public int BaseDamage { get; set; }
-	public Vector2 GlobalPosition { get; set; }
-}
-
 public enum State
 {
 	Normal,

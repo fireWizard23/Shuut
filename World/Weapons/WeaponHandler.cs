@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Godot;
 using Shuut.Player;
+using Shuut.Scripts;
 using Shuut.World.Zombies;
 
 namespace Shuut.World.Weapons;

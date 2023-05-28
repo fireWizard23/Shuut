@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Shuut.Scripts;
 using Shuut.World.Weapons;
 
 namespace Shuut.World.Zombies.States;

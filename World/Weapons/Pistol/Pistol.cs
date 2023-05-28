@@ -1,11 +1,9 @@
-using Godot;
-using System;
-using System.Numerics;
 using System.Threading.Tasks;
-using Shuut.Player;
+using Godot;
 using Shuut.Scripts;
-using Shuut.World.Weapons;
 using Vector2 = Godot.Vector2;
+
+namespace Shuut.World.Weapons.Pistol;
 
 public partial class Pistol : BaseWeapon
 {
@@ -38,7 +36,7 @@ public partial class Pistol : BaseWeapon
 		{
 			var s = _bullet.Instantiate();
 			GetTree().Root.AddChild(s);
-			if (s is Bullet bullet)
+			if (s is Shuut.World.Weapons.Pistol.Bullet bullet)
 			{
 				bullet.Setup
 				(

@@ -1,5 +1,4 @@
 ﻿using Godot;
-using Shuut.Player;
 using Shuut.World;
 
 namespace Shuut.Player.States;
@@ -34,15 +33,13 @@ public class NormalState : BaseState<State, Player>
 
         if (Input.IsActionJustPressed("switch_weapon_up"))
         {
-            Parent._weaponHandler.UnequipWeapon();
+            Parent.WeaponHandler.UnequipWeapon();
             Parent.InputConsumed = true;
         }
 
-        if (Input.IsActionJustPressed("dash"))
-        {
-            ChangeState(State.Dashing);
-            Parent.InputConsumed = true;
-        }
+        if (!Input.IsActionJustPressed("dash")) return;
+        ChangeState(State.Dashing);
+        Parent.InputConsumed = true;
     }
 
 }

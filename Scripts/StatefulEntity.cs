@@ -1,7 +1,6 @@
 ﻿using System;
 using Godot;
 using Shuut.World;
-using Shuut.World.Zombies;
 
 namespace Shuut.Scripts;
 
@@ -33,7 +32,7 @@ public partial class StatefulEntity<T, K> : CharacterBody2D where T: struct, Enu
         StateManager.PhysicsProcess(delta);
     }
 
-    public void ChangeState(T newState) => StateManager.ChangeState(newState);
+    protected void ChangeState(T newState) => StateManager.ChangeState(newState);
 
 
 

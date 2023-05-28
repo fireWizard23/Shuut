@@ -3,7 +3,6 @@ using Godot;
 using Godot.Collections;
 using Shuut.Player;
 using Shuut.Scripts;
-using Shuut.Scripts.Hurtbox;
 using Shuut.World.Weapons;
 using Shuut.World.Zombies.States;
 using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;

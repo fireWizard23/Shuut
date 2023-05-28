@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Godot;
-using Shuut.Player;
+﻿using Godot;
 using Shuut.World;
 using Shuut.World.Weapons;
 

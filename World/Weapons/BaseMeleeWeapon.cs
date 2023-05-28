@@ -1,5 +1,4 @@
 using Godot;
-using Shuut.Scripts.Hitbox;
 using Shuut.Scripts.Hurtbox;
 using Hitbox = Shuut.Scripts.Hitbox.Hitbox;
 

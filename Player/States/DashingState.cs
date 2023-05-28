@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Godot;
-using Shuut.Player;
+﻿using Godot;
 using Shuut.World;
 using Shuut.World.Weapons;
 
@@ -10,12 +8,12 @@ public class DashingState : BaseState<State, Player>
 {
     private bool _shouldExit;
     private float _distanceTraveled;
-    private Vector2 direction;
+    private Vector2 _direction;
 
     public override void OnEnter()
     {
         base.OnEnter();
-        direction = Parent.InputDirection.LengthSquared() > 0 ? Parent.InputDirection : -Vector2.Right.Rotated(Parent.GlobalRotation);
+        _direction = Parent.InputDirection.LengthSquared() > 0 ? Parent.InputDirection : -Vector2.Right.Rotated(Parent.GlobalRotation);
     }
 
     public override async void PhysicsProcess(double delta)
@@ -28,7 +26,7 @@ public class DashingState : BaseState<State, Player>
         }
 
         var speed = 1000;
-        Parent.Velocity = direction * speed;
+        Parent.Velocity = _direction * speed;
         _distanceTraveled += speed * (float)delta;
         if (!(_distanceTraveled >= Parent.DashLength)) return;
         

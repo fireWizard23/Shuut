@@ -1,11 +1,9 @@
-using Godot;
-using System;
 using System.Threading.Tasks;
-using Shuut.Scripts;
+using Godot;
 using Shuut.Scripts.Hitbox;
-using Shuut.Scripts.Hurtbox;
-using Shuut.World.Weapons;
 using Hurtbox = Shuut.Scripts.Hurtbox.Hurtbox;
+
+namespace Shuut.World.Weapons.Fist;
 
 public partial class Fist : BaseMeleeWeapon
 {
@@ -42,9 +40,9 @@ public partial class Fist : BaseMeleeWeapon
 			CollisionMask = _mask
 		};
 		var res = space.IntersectRay 
-			(
+		(
 			query
-			);
+		);
 		if (res.Count > 0)
 		{
 			if (res["collider"].As<Hurtbox>() is { } hurtbox)

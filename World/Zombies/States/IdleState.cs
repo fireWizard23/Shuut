@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Godot;
+﻿using Godot;
 
 namespace Shuut.World.Zombies.States;
 

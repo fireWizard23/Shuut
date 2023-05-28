@@ -1,8 +1,6 @@
 using Godot;
 using Shuut.Player.States;
-using Shuut;
 using Shuut.Scripts;
-using Shuut.Scripts.Hurtbox;
 using Shuut.World;
 using Shuut.World.Weapons;
 using Shuut.World.Zombies;
@@ -29,7 +27,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 	[Export]
 	public float Speed = 100.0f;
 	[Export] private HealthController _healthController;
-	[Export] public WeaponHandler _weaponHandler;
+	[Export] public WeaponHandler WeaponHandler;
 	[Export(PropertyHint.Layers2DPhysics)] public uint AttackMask { get; set;}
 	[Export] public Label Label;
 	[Export] public int BaseDamage { get; set; } = 1;
@@ -96,12 +94,12 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 			}
 
 			Velocity = velocity;
-			if (!_weaponHandler.OwnerCanMove)
+			if (!WeaponHandler.OwnerCanMove)
 			{
 				Velocity *= 0;
 			}
 		}
-		if (!_weaponHandler.OwnerCanRotate) return;
+		if (!WeaponHandler.OwnerCanRotate) return;
 		var targetAngle = GlobalPosition.DirectionTo(GetGlobalMousePosition()).Angle();
 		Rotation = (float)Mathf.LerpAngle(Rotation, targetAngle, 0.5f);
 		MoveAndSlide();
@@ -116,7 +114,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
 		};
 		if(StateManager.CurrentStateEnum == State.Attacking) 
-			_weaponHandler.Cancel();
+			WeaponHandler.Cancel();
 		if(inputBuffer is {InputUsed: "dash"}) 
 			inputBuffer.Reset();
 		

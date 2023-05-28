@@ -1,9 +1,9 @@
 using Godot;
-using System;
-using System.Data.Common;
 using Shuut.Player;
 using Shuut.Scripts.Hitbox;
 using Shuut.Scripts.Hurtbox;
+
+namespace Shuut.World.Weapons.Pistol;
 
 public partial class Bullet : Node2D
 {

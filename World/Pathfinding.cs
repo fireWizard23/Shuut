@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -9,8 +8,7 @@ namespace Shuut.World;
 public partial class Pathfinding : Node
 {
 	
-	[Export]
-	Vector2I _mapSize, _cellSize = Vector2I.Down * 16;
+	[Export] private Vector2I _mapSize, _cellSize = Vector2I.Down * 16;
 	
 	[Export] private Color _enabledColor = Colors.Green; 
 	[Export] private Color _disabledColor = Colors.Red;

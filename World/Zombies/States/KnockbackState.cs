@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Godot;
+﻿using Godot;
 using Shuut.World.Weapons;
 
 namespace Shuut.World.Zombies.States;
@@ -27,13 +26,5 @@ public class KnockbackState : BaseState<State, ZombieController>
         await Parent.CreateTimer(250);
         _shouldExit = false;
         ChangeState(State.Idle);
-        // if (StateManager.PreviousStateEnum != State.InKnockback)
-        // {
-        //     ChangeState(StateManager.PreviousStateEnum ??  State.Wandering );
-        // }
-        // else
-        // {
-        //     ChangeState(State.Idle);
-        // }
     }
 }

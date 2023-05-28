@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://ht2alqa7f206" path="res://Scripts/Hurtbox/hurtbox.tscn" id="5_qiyv2"]
 [ext_resource type="Script" path="res://World/HealthController.cs" id="6_xnxd5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y5eki"]
-radius = 11.4018
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7wkqt"]
 radius = 9.0
 height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5eki"]
+radius = 11.4018
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_healthController", "WeaponHandler", "Label")]
 collision_layer = 2
@@ -24,6 +24,12 @@ WeaponHandler = NodePath("WeaponHandler")
 AttackMask = 9
 Label = NodePath("State")
 BaseDamage = 5
+
+[node name="Hurtbox" parent="." instance=ExtResource("5_qiyv2")]
+collision_layer = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_7wkqt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, 0)
@@ -37,12 +43,6 @@ shape = SubResource("CircleShape2D_y5eki")
 [node name="Pistol" parent="WeaponHandler" instance=ExtResource("5_kjmwh")]
 position = Vector2(20.254, 0)
 
-[node name="Hurtbox" parent="WeaponHandler" instance=ExtResource("5_qiyv2")]
-collision_layer = 4
-
-[node name="CollisionShape2D" parent="WeaponHandler/Hurtbox" index="0"]
-shape = SubResource("CapsuleShape2D_7wkqt")
-
 [node name="Health" type="Node2D" parent="."]
 script = ExtResource("6_xnxd5")
 
@@ -51,7 +51,7 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
-[connection signal="OnHurt" from="WeaponHandler/Hurtbox" to="." method="_on_hurtbox_on_hurt"]
+[connection signal="OnHurt" from="Hurtbox" to="." method="_on_hurtbox_on_hurt"]
 [connection signal="OnHealthZero" from="Health" to="." method="_on_health_on_health_zero"]
 
-[editable path="WeaponHandler/Hurtbox"]
+[editable path="Hurtbox"]

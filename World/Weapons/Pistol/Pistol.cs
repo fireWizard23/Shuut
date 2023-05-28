@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 using Shuut.Scripts;
@@ -47,7 +48,7 @@ public partial class Pistol : BaseWeapon
 					WeaponOwner
 				);
 			}
-			await Handler.CreateTimer((int)(WeaponInfo.ShootCountInterval * 1000));
+			await Handler.CreateTimer(TimeSpan.FromSeconds(WeaponInfo.ShootCountInterval));
 		}
 
 		CurrentAnimation.Release();
@@ -56,7 +57,7 @@ public partial class Pistol : BaseWeapon
 
 	private async void GoCooldown()
 	{
-		await Handler.CreateTimer((int)(WeaponInfo.ShootCooldown * 1000));
+		await Handler.CreateTimer(TimeSpan.FromSeconds(WeaponInfo.ShootCooldown ));
 		_canShoot = true;
 	}
 

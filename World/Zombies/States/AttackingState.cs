@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Shuut.Scripts;
 using Shuut.World.Weapons;
 
@@ -33,7 +34,7 @@ public class AttackingState : BaseState<State, ZombieController>
             return;
         }
         _canAttack = false;
-        await Parent.CreateTimer(200);
+        await Parent.CreateTimer(TimeSpan.FromMilliseconds(200));
         if (StateManager.CurrentStateEnum != State.Attacking)
         {
             _canAttack = true;

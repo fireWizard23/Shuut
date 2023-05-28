@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 using Shuut.Scripts;
@@ -52,7 +53,7 @@ public partial class Fist : BaseMeleeWeapon
 			}
 		}
 
-		await Handler.CreateTimer(1000);
+		await Handler.CreateTimer(TimeSpan.FromMilliseconds(1000));
 	}
 
 	public override Task OnCancel() => Task.CompletedTask;

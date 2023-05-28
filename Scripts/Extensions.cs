@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Godot;
 
 namespace Shuut.Scripts;
@@ -10,11 +11,10 @@ public static class Extensions {
         return task;
     }
 
-    public static SignalAwaiter CreateTimer(this Node node, float seconds)
+    public static SignalAwaiter CreateTimer(this Node node, TimeSpan time)
     {
-        var timer = node.GetTree().CreateTimer(seconds);
+        var timer = node.GetTree().CreateTimer(time.TotalSeconds);
         return node.ToSignal(timer, SceneTreeTimer.SignalName.Timeout);
     }
 
-    public static SignalAwaiter CreateTimer(this Node node, int ms) => node.CreateTimer((float)ms / 1000);
 }

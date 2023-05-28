@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using Shuut.Scripts;
 using Shuut.World;
 using Shuut.World.Weapons;
@@ -34,7 +35,7 @@ public class DashingState : BaseState<State, Player>
         _distanceTraveled = 0;
         _shouldExit = true;
         
-        await Parent.CreateTimer(150);
+        await Parent.CreateTimer(TimeSpan.FromMilliseconds(150));
         _shouldExit = false;
         ChangeState(State.Normal);
     }

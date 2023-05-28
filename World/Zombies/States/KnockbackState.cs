@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using Shuut.Scripts;
 using Shuut.World.Weapons;
 
@@ -24,7 +25,7 @@ public class KnockbackState : BaseState<State, ZombieController>
         
         _distanceTraveled = 0;
         _shouldExit = true;
-        await Parent.CreateTimer(250);
+        await Parent.CreateTimer(TimeSpan.FromMilliseconds(250));
         _shouldExit = false;
         ChangeState(State.Idle);
     }

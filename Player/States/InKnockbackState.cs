@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using Shuut.Scripts;
 using Shuut.World;
 using Shuut.World.Weapons;
@@ -25,7 +26,7 @@ public class InKnockbackState : BaseState<State, Player>
         _distanceTraveled = 0;
         _shouldExit = true;
         
-        await Parent.CreateTimer(250);
+        await Parent.CreateTimer(TimeSpan.FromMilliseconds(250));
         _shouldExit = false;
         ChangeState(State.Normal);
     }

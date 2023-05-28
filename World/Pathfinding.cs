@@ -52,7 +52,7 @@ public partial class Pathfinding : Node
 			rect.Size = _cellSize;
 			rect.GlobalPosition = usedCell * _cellSize;
 			rect.Color = _enabledColor;
-			_cells.Add(usedCell, rect);
+			_cells.TryAdd(usedCell, rect);
 		}
 		
 	}

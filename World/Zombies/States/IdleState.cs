@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Godot;
 
 namespace Shuut.World.Zombies.States;
 
@@ -27,7 +28,7 @@ public class IdleState : BaseState<State, ZombieController>
             return;
         }
 
-        await Task.Delay(Parent.Rng.RandiRange(1000, 2000));
+        await Parent.ToSignal(Parent.GetTree().CreateTimer(Parent.Rng.RandiRange(1000, 2000)), SceneTreeTimer.SignalName.Timeout);
         if (StateManager.CurrentStateEnum != State.Idle) return;
         ChangeState(State.Wandering);
 

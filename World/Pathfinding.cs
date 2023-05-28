@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -22,7 +23,7 @@ public partial class Pathfinding : Node
 	private AStarGrid2D _aStar = new();
 	private TileMap _tileMap;
 
-	private readonly Dictionary<Vector2I, ColorRect> _cells = new();
+	private  Dictionary<Vector2I, ColorRect> _cells = new();
 	private Vector2I _offset;
 
 
@@ -44,7 +45,13 @@ public partial class Pathfinding : Node
 		_aStar.Size = _mapSize;
 
 		_aStar.Update();
+		
+		foreach (var child in _debugParent.GetChildren())
+		{
+			child.QueueFree();
+		}
 
+		_cells = new();
 		foreach (var usedCell in tile.GetUsedCells(0))
 		{
 			var rect = new ColorRect();

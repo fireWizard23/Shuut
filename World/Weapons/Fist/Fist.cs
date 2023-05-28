@@ -53,7 +53,7 @@ public partial class Fist : BaseMeleeWeapon
 			}
 		}
 
-		await Task.Delay(1000);
+		await Handler.CreateTimer(1000);
 	}
 
 	public override Task OnCancel() => Task.CompletedTask;

@@ -49,7 +49,7 @@ public partial class Pistol : BaseWeapon
 					WeaponOwner
 				);
 			}
-			await Task.Delay((int)(WeaponInfo.ShootCountInterval * 1000));
+			await Handler.CreateTimer((int)(WeaponInfo.ShootCountInterval * 1000));
 		}
 
 		CurrentAnimation.Release();
@@ -58,7 +58,7 @@ public partial class Pistol : BaseWeapon
 
 	private async void GoCooldown()
 	{
-		await Task.Delay((int)(WeaponInfo.ShootCooldown * 1000));
+		await Handler.CreateTimer((int)(WeaponInfo.ShootCooldown * 1000));
 		_canShoot = true;
 	}
 

@@ -2,6 +2,7 @@
 using Godot;
 using Shuut.Player;
 using Shuut.World;
+using Shuut.World.Weapons;
 
 namespace Shuut.Player.States;
 
@@ -34,7 +35,7 @@ public class DashingState : BaseState<State, Player>
         _distanceTraveled = 0;
         _shouldExit = true;
         
-        await Task.Delay(150);
+        await Parent.CreateTimer(150);
         _shouldExit = false;
         ChangeState(State.Normal);
     }

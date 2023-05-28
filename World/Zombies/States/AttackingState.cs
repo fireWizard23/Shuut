@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Godot;
+using Shuut.World.Weapons;
 
 namespace Shuut.World.Zombies.States;
 
@@ -32,7 +33,7 @@ public class AttackingState : BaseState<State, ZombieController>
             return;
         }
         _canAttack = false;
-        await Task.Delay(200);
+        await Parent.CreateTimer(200);
         if (StateManager.CurrentStateEnum != State.Attacking)
         {
             _canAttack = true;

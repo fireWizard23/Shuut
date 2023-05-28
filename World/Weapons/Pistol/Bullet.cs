@@ -15,6 +15,7 @@ public partial class Bullet : Node2D
     public int damage;
     private PhysicsDirectSpaceState2D space;
     private IDamager damager;
+    private Vector2 _distanceTravelled;
 
     public override void _Ready()
     {
@@ -42,8 +43,17 @@ public partial class Bullet : Node2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        GlobalPosition += direction * Speed * (float)delta;
+        var positionToAdd = direction * Speed * (float)delta;
+        GlobalPosition += positionToAdd;
+        _distanceTravelled += positionToAdd;
 
+        if (_distanceTravelled.Length() >= Constants.Tile.Sizex5)
+        {
+            QueueFree();
+            return;
+        }
+        
+        
         var query = new PhysicsShapeQueryParameters2D()
         {
             Shape = _hitbox.CollisionShape2D.Shape,

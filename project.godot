@@ -22,6 +22,7 @@ config/features=PackedStringArray("4.0", "C#", "GL Compatibility")
 
 [autoload]
 
+GameManager="*res://World/GameManager.tscn"
 Pathfinding="*res://Pathfinding.tscn"
 
 [display]

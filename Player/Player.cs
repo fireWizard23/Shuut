@@ -13,7 +13,6 @@ public enum State
 	Normal,
 	Attacking,
 	InKnockback,
-	Dashing,
 }
 
 public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
@@ -42,7 +41,6 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 				{ State.Normal,  new NormalState() },
 				{ State.Attacking,  new AttackingState() },
 				{ State.InKnockback,  new InKnockbackState() },
-				{ State.Dashing,  new DashingState() },
 			},
 			this
 		);
@@ -55,10 +53,6 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 
 	    if (!InputConsumed)
 	    {
-		    if (Input.IsActionJustPressed("dash"))
-		    {
-			    inputBuffer.Use("dash");
-		    }
 
 		    if (Input.IsActionJustPressed("attack"))
 		    {
@@ -74,7 +68,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 	{
 		base._PhysicsProcess(delta);
 		var velocity = Velocity;
-		if (StateManager.CurrentStateEnum is not (State.InKnockback or  State.Dashing))
+		if (StateManager.CurrentStateEnum is not (State.InKnockback))
 		{
 			
 			if (InputDirection != Vector2.Zero)

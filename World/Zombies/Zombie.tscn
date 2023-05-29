@@ -15,7 +15,7 @@ height = 42.0
 radius = 12.1655
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghik6"]
-radius = 157.563
+radius = 192.0
 
 [node name="Zombie" type="CharacterBody2D" node_paths=PackedStringArray("PathLine2D", "Detector", "StateLabel", "HealthController", "WeaponHandler")]
 collision_layer = 16
@@ -51,12 +51,12 @@ points = PackedVector2Array(0, 0, 107, 4)
 width = 5.0
 
 [node name="Detector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+visible = false
 shape = SubResource("CircleShape2D_ghik6")
 
 [node name="Label" type="Label" parent="."]

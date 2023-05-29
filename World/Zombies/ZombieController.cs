@@ -12,11 +12,6 @@ namespace Shuut.World.Zombies;
 
 using StateManager = StateManager<State, ZombieController>;
 
-public interface IAttacker
-{
-	public uint AttackMask { get; set; }	
-}
-
 public enum State
 {
 	Idle,

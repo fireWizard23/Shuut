@@ -15,7 +15,7 @@ height = 42.0
 radius = 12.1655
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghik6"]
-radius = 157.563
+radius = 192.0
 
 [node name="Zombie" type="CharacterBody2D" node_paths=PackedStringArray("PathLine2D", "Detector", "StateLabel", "HealthController", "WeaponHandler")]
 collision_layer = 16
@@ -51,12 +51,12 @@ points = PackedVector2Array(0, 0, 107, 4)
 width = 5.0
 
 [node name="Detector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+visible = false
 shape = SubResource("CircleShape2D_ghik6")
 
 [node name="Label" type="Label" parent="."]
@@ -75,6 +75,7 @@ script = ExtResource("4_tuw6m")
 [node name="Fist" parent="WeaponHandler" instance=ExtResource("6_epsl6")]
 
 [connection signal="OnHurt" from="Hurtbox" to="." method="_on_hurtbox_on_hurt"]
+[connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
 [connection signal="OnHealthZero" from="Health" to="." method="_on_health_on_health_zero"]
 
 [editable path="Hurtbox"]

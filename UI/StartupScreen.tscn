@@ -45,11 +45,13 @@ grow_vertical = 2
 
 [node name="Start" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
 text = "Start"
 flat = true
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
 text = "Quit
 "
 flat = true

@@ -11,10 +11,6 @@ public class NormalState : BaseState<State, Player>
         if (!Parent.inputBuffer.IsUsed) return;
         switch (Parent.inputBuffer.InputUsed)
         {
-            case "dash":
-                Parent.inputBuffer.Reset();
-                ChangeState(State.Dashing);
-                break;
             case "attack":
                 Parent.inputBuffer.Reset(); 
                 ChangeState(State.Attacking);
@@ -38,7 +34,6 @@ public class NormalState : BaseState<State, Player>
         }
 
         if (!Input.IsActionJustPressed("dash")) return;
-        ChangeState(State.Dashing);
         Parent.InputConsumed = true;
     }
 

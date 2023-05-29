@@ -53,6 +53,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	public Vector2 DesiredVelocity;
 
 	private Array<Rid> _exclude;
+	private Node2D _potentialTarget;
 
 
 	protected override void BeforeReady()
@@ -101,6 +102,39 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		StateLabel.Text = StateManager.CurrentStateEnum.ToString();
 		StateLabel.Rotation = -Rotation;
 		StateLabel.Position = Vector2.Zero;
+
+
+		void DeterminePotentialTarget()
+		{
+			var distance = GlobalPosition.DistanceTo(_potentialTarget.GlobalPosition);
+			switch (distance)
+			{
+				case >= Constants.Tile.Sizex5:
+					_potentialTarget = null;
+					return;
+				case < Constants.Tile.Size * 1.5f:
+					Target = _potentialTarget;
+					_potentialTarget = null;
+					ChangeState(State.Chasing);
+					return;
+			}
+
+			var dir = GlobalPosition.DirectionTo(_potentialTarget.GlobalPosition);
+			var dot = Vector2.Right.Rotated(GlobalRotation).Dot(dir);
+			
+			if (!(dot > 0.4f)) return;
+			
+			Target = _potentialTarget;
+			_potentialTarget = null;
+			ChangeState(State.Chasing);
+
+		}
+
+		if (_potentialTarget != null)
+		{
+			DeterminePotentialTarget();
+		}
+		
 		
 		//Rotation
 		if (StateManager.CurrentStateEnum is State.InKnockback) return;
@@ -109,6 +143,8 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		{
 			Rotation = (float)Mathf.LerpAngle(Rotation, targetAngle, 8 * delta);
 		}
+
+		
 	}
 
 	Vector2 ContextSteer(Vector2 desiredDirection, uint collisionLayer,int rayCount=8,int rayLength=100)
@@ -171,6 +207,16 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	private void _on_health_on_health_zero()
 	{
 		Destroy();
+	}
+
+	private void _on_detector_body_entered(Node2D body)
+	{
+		if (Target != null || _potentialTarget != null)
+		{
+			return;
+		}
+		
+		_potentialTarget = body;
 	}
 
 

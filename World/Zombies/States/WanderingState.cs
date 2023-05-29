@@ -13,16 +13,8 @@ public class WanderingState : BaseState<State, ZombieController>
     {
         base.OnRegister();
         this._rng = Parent.Rng;
-        Parent.Detector.BodyEntered += DetectorOnBodyEntered;
         this._space = Parent.GetWorld2D().DirectSpaceState;
     }
-
-    private void DetectorOnBodyEntered(Node2D body)
-    {
-        Parent.Target = body;
-        ChangeState(State.Chasing);
-    }
-
 
     public override void OnEnter()
     {

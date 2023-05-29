@@ -11,9 +11,9 @@ public static class Extensions {
         return task;
     }
 
-    public static SignalAwaiter CreateTimer(this Node node, TimeSpan time)
+    public static SignalAwaiter CreateTimer(this Node node, TimeSpan time, SceneTree tree=null)
     {
-        var timer = node.GetTree().CreateTimer(time.TotalSeconds);
+        var timer = (tree ?? node.GetTree()).CreateTimer(time.TotalSeconds);
         return node.ToSignal(timer, SceneTreeTimer.SignalName.Timeout);
     }
 

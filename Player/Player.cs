@@ -2,9 +2,7 @@ using Godot;
 using Shuut.Player.States;
 using Shuut.Scripts;
 using Shuut.Scripts.Poise;
-using Shuut.World;
 using Shuut.World.Weapons;
-using Shuut.World.Zombies;
 using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
 
 namespace Shuut.Player;
@@ -25,20 +23,20 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 	[Export] public Label Label;
 
 	public int BaseDamage => GivenStats.BaseDamage;
-	public float Speed => GivenStats.MovementSpeed;
-	public Poise Poise;
+	private float Speed => GivenStats.MovementSpeed;
+	private Poise _poise;
 
 
-	public float DashLength = Constants.Tile.Size;
+	private float _dashLength = Constants.Tile.Size;
 	public KnockbackInfo KnockbackInfo;
-	public Vector2 InputDirection;
+	private Vector2 _inputDirection;
 
-    public InputBuffer inputBuffer = new() { TimeMs = 500 };
-    public bool InputConsumed = false;
+    public readonly InputBuffer InputBuffer = new() { TimeMs = 500 };
+    public bool InputConsumed;
 
     protected override void BeforeReady()
 	{
-		Poise.Setup(GivenStats.Poise);
+		_poise.Setup(GivenStats.Poise);
 		StateManager = new(
 			new()
 			{
@@ -53,14 +51,14 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
     public override void _Process(double delta)
     {
 	    base._Process(delta);
-	    InputDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+	    _inputDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
 	    if (!InputConsumed)
 	    {
 
 		    if (Input.IsActionJustPressed("attack"))
 		    {
-			    inputBuffer.Use("attack");
+			    InputBuffer.Use("attack");
 		    }
 	    }
 
@@ -75,9 +73,9 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 		if (StateManager.CurrentStateEnum is not (State.InKnockback))
 		{
 			
-			if (InputDirection != Vector2.Zero)
+			if (_inputDirection != Vector2.Zero)
 			{
-				velocity = InputDirection.Normalized() * Speed;
+				velocity = _inputDirection.Normalized() * Speed;
 
 			}
 			else
@@ -93,7 +91,7 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 		}
 		if (!WeaponHandler.OwnerCanRotate) return;
 		var targetAngle = GlobalPosition.DirectionTo(GetGlobalMousePosition()).Angle();
-		Rotation = (float)Mathf.LerpAngle(Rotation, targetAngle, 0.5f);
+		Rotation = Mathf.LerpAngle(Rotation, targetAngle, 0.5f);
 		MoveAndSlide();
 	}
 
@@ -101,7 +99,7 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 	private void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{
 		_healthController.ReduceHealth(damageInfo.Damage);
-		var isStunned = Poise.Reduce(damageInfo.PoiseDamage);
+		var isStunned = _poise.Reduce(damageInfo.PoiseDamage);
 		this.KnockbackInfo = new KnockbackInfo()
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
@@ -111,8 +109,8 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 		
 		if(StateManager.CurrentStateEnum == State.Attacking) 
 			WeaponHandler.Cancel();
-		if(inputBuffer is {InputUsed: "dash"}) 
-			inputBuffer.Reset();
+		if(InputBuffer is {InputUsed: "dash"}) 
+			InputBuffer.Reset();
 		
 		StateManager.ChangeState(State.InKnockback);
 	}

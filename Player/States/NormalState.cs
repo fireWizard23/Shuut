@@ -8,11 +8,11 @@ public class NormalState : BaseState<State, Player>
     public override void OnEnter()
     {
         base.OnEnter();
-        if (!Parent.inputBuffer.IsUsed) return;
-        switch (Parent.inputBuffer.InputUsed)
+        if (!Parent.InputBuffer.IsUsed) return;
+        switch (Parent.InputBuffer.InputUsed)
         {
             case "attack":
-                Parent.inputBuffer.Reset(); 
+                Parent.InputBuffer.Reset(); 
                 ChangeState(State.Attacking);
                 break;
         }

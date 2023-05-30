@@ -101,10 +101,8 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		StateLabel.Text = StateManager.CurrentStateEnum.ToString();
 		StateLabel.Rotation = -Rotation;
 		StateLabel.Position = Vector2.Zero;
-														
-		DetectionCue.Rotation = -Rotation;
-		StateLabel.Position = Vector2.Up * 10;
 
+		DetectionCue.GetParent<Node2D>().GlobalRotation = 0;
 
 		void DeterminePotentialTarget()
 		{
@@ -141,7 +139,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		
 		
 		//Rotation
-		if (StateManager.CurrentStateEnum is State.InKnockback) return;
+		if (StateManager.CurrentStateEnum is (State.InKnockback or State.EnemyDetected)) return;
 		
 		var targetAngle = Velocity.Normalized().Angle();
 		if (Velocity.LengthSquared() > 0)

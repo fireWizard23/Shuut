@@ -4,6 +4,7 @@ using Godot;
 using Godot.Collections;
 using Shuut.Player;
 using Shuut.Scripts;
+using Shuut.Scripts.Poise;
 using Shuut.World.Weapons;
 using Shuut.World.Zombies.States;
 using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
@@ -38,8 +39,8 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 
 	
 	[Export(PropertyHint.Layers2DPhysics)] private uint _entitySteerAwayLayer;
-	
 
+	public Poise Poise = new();
 	public int BaseDamage => GivenStats.BaseDamage;
 	public float MovementSpeed => GivenStats.MovementSpeed;
 	public Vector2 SpawnPosition { get; private set; }
@@ -49,8 +50,6 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	
 	public Vector2 DesiredVelocity;
 	
-	public int Poise { get; set; }
-
 	private Array<Rid> _exclude;
 	private Node2D _potentialTarget;
 	
@@ -60,7 +59,9 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	protected override void BeforeReady()
 	{
 		_exclude = new(){ GetRid()};
-		Poise = GivenStats.Poise;
+		
+		Poise.Setup(GivenStats.Poise);
+		
 		SpawnPosition = GlobalPosition;
 		Rng.Randomize();
 		
@@ -237,14 +238,13 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		};
 		
 		Target ??= (Node2D)damageInfo.Source;
-		
-		Poise -= damageInfo.Damage;
-		if (Poise <= 0)
+
+		if (Poise.Reduce(damageInfo.Damage))
 		{
 			ChangeState(State.InKnockback);
-			Poise = GivenStats.Poise;
 			return;
-		}		
+		}
+	
 		
 		if (StateManager.CurrentStateEnum is State.Attacking or State.Chasing or State.EnemyDetected)
 			return;
@@ -258,4 +258,5 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 
 	}
 
+	
 }

@@ -15,7 +15,7 @@ height = 42.0
 radius = 12.1655
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghik6"]
-radius = 192.0
+radius = 160.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_xr3j4"]
 font_size = 24

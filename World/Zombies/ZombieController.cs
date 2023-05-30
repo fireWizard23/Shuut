@@ -223,7 +223,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	}
 
 
-	private void _on_hurtbox_on_hurt(DamageInfo damageInfo)
+	private async void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{
 		HealthController.ReduceHealth(damageInfo.Damage);
 		this.KnockbackInfo = new KnockbackInfo()
@@ -235,6 +235,13 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		
 		Target ??= (Node2D)damageInfo.Source;
 		damageInfo.Dispose();
+		if (StateManager.PreviousStateEnum is State.Chasing or State.Attacking)
+			return;
+		
+		DetectionCue.Text = "!!";
+		await this.CreateTimer(TimeSpan.FromMilliseconds(250));
+		DetectionCue.Text = string.Empty;
+
 	}
 
 }

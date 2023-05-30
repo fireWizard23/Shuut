@@ -26,23 +26,22 @@ public enum State
 
 public partial class ZombieController : StatefulEntity<State, ZombieController>, IAttacker, IDamager
 {
-
-	[Export] public float MovementSpeed { get; private set; } = 100;
-	
+	[Export] public EntityStats GivenStats;
 	[Export] public Line2D PathLine2D;
 	[Export] public Area2D Detector { get; private set; }
 	[Export] public Label StateLabel;
 	[Export] public HealthController HealthController;
 	[Export] public WeaponHandler WeaponHandler;
 	[Export] public Label DetectionCue;
-	[Export] public int BaseDamage { get; set; } = 1;
-	
+
 	[Export(PropertyHint.Layers2DPhysics)]  public uint AttackMask { get; set; }
 
 	
 	[Export(PropertyHint.Layers2DPhysics)] private uint _entitySteerAwayLayer;
 	
-	
+
+	public int BaseDamage => GivenStats.BaseDamage;
+	public float MovementSpeed => GivenStats.MovementSpeed;
 	public Vector2 SpawnPosition { get; private set; }
 	public Node2D Target { get; set; }
 	public RandomNumberGenerator Rng = new();

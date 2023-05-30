@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dlag50h1l3kb"]
+
+[ext_resource type="Script" path="res://Scripts/EntityStats.cs" id="1_ren4f"]
+
+[resource]
+script = ExtResource("1_ren4f")
+_tileMovementSpeed = 1.0
+StartingHealth = 100.0
+BaseDamage = 1

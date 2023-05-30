@@ -17,13 +17,14 @@ public enum State
 
 public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 {
-	[Export]
-	public float Speed = 100.0f;
+	[Export] public EntityStats GivenStats;
 	[Export] private HealthController _healthController;
 	[Export] public WeaponHandler WeaponHandler;
 	[Export(PropertyHint.Layers2DPhysics)] public uint AttackMask { get; set;}
 	[Export] public Label Label;
-	[Export] public int BaseDamage { get; set; } = 1;
+
+	public int BaseDamage => GivenStats.BaseDamage;
+	public float Speed => GivenStats.MovementSpeed;
 
 
 	public float DashLength = Constants.Tile.Size;
@@ -92,6 +93,7 @@ public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
 		Rotation = (float)Mathf.LerpAngle(Rotation, targetAngle, 0.5f);
 		MoveAndSlide();
 	}
+
 
 	private void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{

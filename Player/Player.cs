@@ -1,6 +1,7 @@
 using Godot;
 using Shuut.Player.States;
 using Shuut.Scripts;
+using Shuut.Scripts.Poise;
 using Shuut.World;
 using Shuut.World.Weapons;
 using Shuut.World.Zombies;
@@ -25,6 +26,7 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 
 	public int BaseDamage => GivenStats.BaseDamage;
 	public float Speed => GivenStats.MovementSpeed;
+	public Poise Poise;
 
 
 	public float DashLength = Constants.Tile.Size;
@@ -36,6 +38,7 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 
     protected override void BeforeReady()
 	{
+		Poise.Setup(GivenStats.Poise);
 		StateManager = new(
 			new()
 			{
@@ -98,11 +101,14 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 	private void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{
 		_healthController.ReduceHealth(damageInfo.Damage);
-		KnockbackInfo = new()
+		var isStunned = Poise.Reduce(damageInfo.PoiseDamage);
+		this.KnockbackInfo = new KnockbackInfo()
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
-			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
+			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/ (isStunned ? 2 : 4), Constants.Tile.Sizex5),
+			IsStunned = isStunned
 		};
+		
 		if(StateManager.CurrentStateEnum == State.Attacking) 
 			WeaponHandler.Cancel();
 		if(inputBuffer is {InputUsed: "dash"}) 

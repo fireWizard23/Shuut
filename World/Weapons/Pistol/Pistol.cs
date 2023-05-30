@@ -45,7 +45,8 @@ public partial class Pistol : BaseWeapon
 					Vector2.Right.Rotated((GlobalRotation)),
 					mask,
 					WeaponOwner.BaseDamage + WeaponInfo.BaseDamage,
-					WeaponOwner
+					WeaponOwner,
+					WeaponInfo.PoiseDamage
 				);
 			}
 			await Handler.CreateTimer(TimeSpan.FromSeconds(WeaponInfo.ShootCountInterval));

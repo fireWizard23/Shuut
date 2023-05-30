@@ -13,6 +13,7 @@ script = ExtResource("2_0qosf")
 _tileMovementSpeed = 1.0
 StartingHealth = 100.0
 BaseDamage = 10
+Poise = 50
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ra835"]
 radius = 13.0

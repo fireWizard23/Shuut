@@ -4,6 +4,7 @@ using Godot;
 using Godot.Collections;
 using Shuut.Player;
 using Shuut.Scripts;
+using Shuut.Scripts.Poise;
 using Shuut.World.Weapons;
 using Shuut.World.Zombies.States;
 using DamageInfo = Shuut.Scripts.Hurtbox.DamageInfo;
@@ -38,8 +39,8 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 
 	
 	[Export(PropertyHint.Layers2DPhysics)] private uint _entitySteerAwayLayer;
-	
 
+	public Poise Poise = new();
 	public int BaseDamage => GivenStats.BaseDamage;
 	public float MovementSpeed => GivenStats.MovementSpeed;
 	public Vector2 SpawnPosition { get; private set; }
@@ -48,14 +49,19 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	public KnockbackInfo KnockbackInfo { get; set; }
 	
 	public Vector2 DesiredVelocity;
-
+	
 	private Array<Rid> _exclude;
 	private Node2D _potentialTarget;
+	
+
 
 
 	protected override void BeforeReady()
 	{
 		_exclude = new(){ GetRid()};
+		
+		Poise.Setup(GivenStats.Poise);
+		
 		SpawnPosition = GlobalPosition;
 		Rng.Randomize();
 		
@@ -225,21 +231,28 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	private async void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{
 		HealthController.ReduceHealth(damageInfo.Damage);
+		var isStunned = Poise.Reduce(damageInfo.PoiseDamage);
 		this.KnockbackInfo = new KnockbackInfo()
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
-			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
-		}; 
-		ChangeState(State.InKnockback);
+			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/ (isStunned ? 2 : 4), Constants.Tile.Sizex5),
+			IsStunned = isStunned
+		};
+		
 		
 		Target ??= (Node2D)damageInfo.Source;
-		if (StateManager.PreviousStateEnum is State.Chasing or State.Attacking)
-			return;
+
+		ChangeState(State.InKnockback);
+	
 		
+		if (StateManager.PreviousStateEnum is State.Attacking or State.Chasing or State.EnemyDetected)
+			return;
+
 		DetectionCue.Text = "!!";
 		await this.CreateTimer(TimeSpan.FromMilliseconds(250));
 		DetectionCue.Text = string.Empty;
 
 	}
 
+	
 }

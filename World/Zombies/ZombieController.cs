@@ -233,7 +233,6 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		ChangeState(State.InKnockback);
 		
 		Target ??= (Node2D)damageInfo.Source;
-		damageInfo.Dispose();
 		if (StateManager.PreviousStateEnum is State.Chasing or State.Attacking)
 			return;
 		

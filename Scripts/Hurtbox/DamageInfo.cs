@@ -1,8 +1,8 @@
-﻿using Shuut.Player;
+﻿using Godot;
 
 namespace Shuut.Scripts.Hurtbox;
 
-public partial class DamageInfo : Godot.GodotObject
+public partial class DamageInfo : RefCounted
 {
     public int Damage;
     public IDamager Source;

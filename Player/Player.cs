@@ -109,7 +109,6 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 			inputBuffer.Reset();
 		
 		StateManager.ChangeState(State.InKnockback);
-		damageInfo.Dispose();
 	}
 
 	private void _on_health_on_health_zero()

@@ -27,7 +27,6 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 	private Poise _poise;
 
 
-	private float _dashLength = Constants.Tile.Size;
 	public KnockbackInfo KnockbackInfo;
 	private Vector2 _inputDirection;
 
@@ -109,8 +108,6 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 		
 		if(StateManager.CurrentStateEnum == State.Attacking) 
 			WeaponHandler.Cancel();
-		if(InputBuffer is {InputUsed: "dash"}) 
-			InputBuffer.Reset();
 		
 		StateManager.ChangeState(State.InKnockback);
 	}

@@ -25,7 +25,8 @@ public class KnockbackState : BaseState<State, ZombieController>
         
         _distanceTraveled = 0;
         _shouldExit = true;
-        await Parent.CreateTimer(TimeSpan.FromMilliseconds(250));
+        if(Parent.KnockbackInfo.IsStunned)
+            await Parent.CreateTimer(TimeSpan.FromMilliseconds(250));
         _shouldExit = false;
         ChangeState(State.Idle);
     }

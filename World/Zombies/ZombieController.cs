@@ -234,27 +234,21 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		this.KnockbackInfo = new KnockbackInfo()
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
-			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
+			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5),
+			IsStunned = Poise.Reduce(damageInfo.Damage)
 		};
 		
 		Target ??= (Node2D)damageInfo.Source;
 
-		if (Poise.Reduce(damageInfo.Damage))
-		{
-			ChangeState(State.InKnockback);
-			return;
-		}
+		ChangeState(State.InKnockback);
 	
 		
-		if (StateManager.CurrentStateEnum is State.Attacking or State.Chasing or State.EnemyDetected)
+		if (StateManager.PreviousStateEnum is State.Attacking or State.Chasing or State.EnemyDetected)
 			return;
-		ChangeState(State.InKnockback);
-		
-		Target ??= (Node2D)damageInfo.Source;
-		if (StateManager.PreviousStateEnum is State.Chasing or State.Attacking)
-			return;
-		
-		ChangeState(State.EnemyDetected);
+
+		DetectionCue.Text = "!!";
+		await this.CreateTimer(TimeSpan.FromMilliseconds(250));
+		DetectionCue.Text = string.Empty;
 
 	}
 

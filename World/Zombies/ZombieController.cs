@@ -48,14 +48,19 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	public KnockbackInfo KnockbackInfo { get; set; }
 	
 	public Vector2 DesiredVelocity;
+	
+	public int Poise { get; set; }
 
 	private Array<Rid> _exclude;
 	private Node2D _potentialTarget;
+	
+
 
 
 	protected override void BeforeReady()
 	{
 		_exclude = new(){ GetRid()};
+		Poise = GivenStats.Poise;
 		SpawnPosition = GlobalPosition;
 		Rng.Randomize();
 		
@@ -74,6 +79,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		);
 
 	}
+
 
 
 	public override void _Process(double delta)
@@ -229,17 +235,23 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
 			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5)
-		}; 
-		ChangeState(State.InKnockback);
+		};
 		
 		Target ??= (Node2D)damageInfo.Source;
+		
+		Poise -= damageInfo.Damage;
+		if (Poise <= 0)
+		{
+			ChangeState(State.InKnockback);
+			Poise = GivenStats.Poise;
+			return;
+		}		
 		damageInfo.Dispose();
-		if (StateManager.PreviousStateEnum is State.Chasing or State.Attacking)
+		
+		if (StateManager.CurrentStateEnum is State.Attacking or State.Chasing or State.EnemyDetected)
 			return;
 		
-		DetectionCue.Text = "!!";
-		await this.CreateTimer(TimeSpan.FromMilliseconds(250));
-		DetectionCue.Text = string.Empty;
+		ChangeState(State.EnemyDetected);
 
 	}
 

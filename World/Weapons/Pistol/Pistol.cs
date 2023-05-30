@@ -1,4 +1,5 @@
 using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Godot;
 using Shuut.Scripts;
@@ -27,6 +28,7 @@ public partial class Pistol : BaseWeapon
 
 	public override async Task Use()
 	{
+		
 		if (!_canShoot)
 		{
 			return;
@@ -49,7 +51,8 @@ public partial class Pistol : BaseWeapon
 					WeaponInfo.PoiseDamage
 				);
 			}
-			await Handler.CreateTimer(TimeSpan.FromSeconds(WeaponInfo.ShootCountInterval));
+			if(WeaponInfo.ShootCount > 1)
+				await Handler.CreateTimer(TimeSpan.FromSeconds(WeaponInfo.ShootCountInterval));
 		}
 
 		CurrentAnimation.Release();

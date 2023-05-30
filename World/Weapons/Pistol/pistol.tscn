@@ -14,12 +14,13 @@ WindupAnimationLength = 1.0
 
 [sub_resource type="Resource" id="Resource_y5nqi"]
 script = ExtResource("3_dqm1s")
-ShootCooldown = 0.25
+ShootCooldown = 1.25
 ShootCount = 1.0
 ShootCountInterval = 0.25
 TilesShootRange = 5.0
 WeaponAnimationsDuration = SubResource("Resource_yqyn8")
 BaseDamage = 1
+PoiseDamage = 1
 
 [node name="Pistol" type="Node2D" node_paths=PackedStringArray("muzzle")]
 script = ExtResource("1_jofv4")

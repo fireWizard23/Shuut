@@ -231,12 +231,14 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	private async void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{
 		HealthController.ReduceHealth(damageInfo.Damage);
+		var isStunned = Poise.Reduce(damageInfo.Damage);
 		this.KnockbackInfo = new KnockbackInfo()
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),
-			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/2, Constants.Tile.Sizex5),
-			IsStunned = Poise.Reduce(damageInfo.Damage)
+			Distance = Mathf.Clamp(damageInfo.Damage, Constants.Tile.Size/ (isStunned ? 2 : 4), Constants.Tile.Sizex5),
+			IsStunned = isStunned
 		};
+		
 		
 		Target ??= (Node2D)damageInfo.Source;
 

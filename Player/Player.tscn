@@ -1,11 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbjfcgdd42dgx"]
+[gd_scene load_steps=11 format=3 uid="uid://bbjfcgdd42dgx"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_a2go8"]
+[ext_resource type="Script" path="res://Scripts/EntityStats.cs" id="2_6y1q6"]
 [ext_resource type="Texture2D" uid="uid://dx7rh4g1lh8ne" path="res://Assets/Characters/Man Blue/manBlue_stand.png" id="2_n4e54"]
 [ext_resource type="PackedScene" uid="uid://8knc8vxvk1h1" path="res://World/Weapons/weapon_handler.tscn" id="3_v1ay4"]
 [ext_resource type="PackedScene" uid="uid://bj1q7vtavvidf" path="res://World/Weapons/Pistol/pistol.tscn" id="5_kjmwh"]
 [ext_resource type="PackedScene" uid="uid://ht2alqa7f206" path="res://Scripts/Hurtbox/hurtbox.tscn" id="5_qiyv2"]
 [ext_resource type="Script" path="res://World/HealthController.cs" id="6_xnxd5"]
+
+[sub_resource type="Resource" id="Resource_18o1a"]
+script = ExtResource("2_6y1q6")
+_tileMovementSpeed = 1.5
+StartingHealth = 100.0
+BaseDamage = 10
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7wkqt"]
 radius = 9.0
@@ -19,11 +26,11 @@ collision_layer = 2
 collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_a2go8")
+GivenStats = SubResource("Resource_18o1a")
 _healthController = NodePath("Health")
 WeaponHandler = NodePath("WeaponHandler")
 AttackMask = 9
 Label = NodePath("State")
-BaseDamage = 5
 
 [node name="Hurtbox" parent="." instance=ExtResource("5_qiyv2")]
 collision_layer = 4

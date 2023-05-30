@@ -1,11 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://t56vlmdsrqm6"]
+[gd_scene load_steps=12 format=3 uid="uid://t56vlmdsrqm6"]
 
 [ext_resource type="Script" path="res://World/Zombies/ZombieController.cs" id="1_s4mqb"]
 [ext_resource type="PackedScene" uid="uid://ht2alqa7f206" path="res://Scripts/Hurtbox/hurtbox.tscn" id="2_2ax57"]
+[ext_resource type="Script" path="res://Scripts/EntityStats.cs" id="2_56177"]
 [ext_resource type="Texture2D" uid="uid://byvuta14p71gq" path="res://Assets/Characters/Zombie 1/zoimbie1_hold.png" id="2_ev2b3"]
 [ext_resource type="Script" path="res://World/HealthController.cs" id="4_tuw6m"]
 [ext_resource type="PackedScene" uid="uid://8knc8vxvk1h1" path="res://World/Weapons/weapon_handler.tscn" id="5_xwfhe"]
 [ext_resource type="PackedScene" uid="uid://cfceleysjka87" path="res://World/Weapons/Fist/fist.tscn" id="6_epsl6"]
+
+[sub_resource type="Resource" id="Resource_6tjbs"]
+script = ExtResource("2_56177")
+_tileMovementSpeed = 1.25
+StartingHealth = 100.0
+BaseDamage = 30
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ra835"]
 radius = 13.0
@@ -22,13 +29,12 @@ collision_layer = 16
 collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_s4mqb")
-MovementSpeed = 50.0
+GivenStats = SubResource("Resource_6tjbs")
 PathLine2D = NodePath("Line2D")
 Detector = NodePath("Detector")
 StateLabel = NodePath("Label")
 HealthController = NodePath("Health")
 WeaponHandler = NodePath("WeaponHandler")
-BaseDamage = 20
 AttackMask = 5
 _entitySteerAwayLayer = 17
 

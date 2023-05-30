@@ -24,7 +24,7 @@ public enum State
 }
 
 
-public partial class ZombieController : StatefulEntity<State, ZombieController>, IAttacker, IDamager
+public partial class ZombieController : StatefulEntity<State, ZombieController>, IDamager
 {
 	[Export] public EntityStats GivenStats;
 	[Export] public Line2D PathLine2D;

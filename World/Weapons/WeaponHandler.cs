@@ -38,7 +38,7 @@ public partial class WeaponHandler : Node2D
 		Parent = GetParent() as IDamager;;
 		_weapon.Setup(Parent);
 		_weapon.SetAttackMask(
-			((IAttacker)GetParent()).AttackMask );
+			((IDamager)GetParent()).AttackMask );
 		_weapon.Sheath();
 		EquipWeapon();
 	}

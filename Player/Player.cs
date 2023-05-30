@@ -15,7 +15,7 @@ public enum State
 	InKnockback,
 }
 
-public partial class Player : StatefulEntity<State, Player>, IAttacker, IDamager
+public partial class Player : StatefulEntity<State, Player>, IDamager
 {
 	[Export] public EntityStats GivenStats;
 	[Export] private HealthController _healthController;

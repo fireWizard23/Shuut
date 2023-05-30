@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Godot;
 using Godot.Collections;
@@ -18,7 +19,8 @@ public enum State
 	Chasing,
 	Wandering,
 	Attacking,
-	InKnockback
+	InKnockback,
+	EnemyDetected,
 }
 
 
@@ -32,6 +34,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	[Export] public Label StateLabel;
 	[Export] public HealthController HealthController;
 	[Export] public WeaponHandler WeaponHandler;
+	[Export] public Label DetectionCue;
 	[Export] public int BaseDamage { get; set; } = 1;
 	
 	[Export(PropertyHint.Layers2DPhysics)]  public uint AttackMask { get; set; }
@@ -65,6 +68,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 				{ State.Attacking , new AttackingState()},
 				{ State.Chasing , new ChasingState()},
 				{ State.InKnockback, new KnockbackState()},
+				{ State.EnemyDetected, new EnemyDetected()},
 				
 			},
 			this
@@ -97,6 +101,9 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		StateLabel.Text = StateManager.CurrentStateEnum.ToString();
 		StateLabel.Rotation = -Rotation;
 		StateLabel.Position = Vector2.Zero;
+														
+		DetectionCue.Rotation = -Rotation;
+		StateLabel.Position = Vector2.Up * 10;
 
 
 		void DeterminePotentialTarget()
@@ -105,15 +112,17 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 			switch (distance)
 			{
 				case >= Constants.Tile.Sizex5:
+					DetectionCue.Text = string.Empty;
 					_potentialTarget = null;
 					return;
 				case < Constants.Tile.Size * 1.5f:
 					Target = _potentialTarget;
 					_potentialTarget = null;
-					ChangeState(State.Chasing);
+					ChangeState(State.EnemyDetected);
 					return;
 			}
 
+			DetectionCue.Text = "?";
 			var dir = GlobalPosition.DirectionTo(_potentialTarget.GlobalPosition);
 			var dot = Vector2.Right.Rotated(GlobalRotation).Dot(dir);
 			
@@ -121,7 +130,7 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 			
 			Target = _potentialTarget;
 			_potentialTarget = null;
-			ChangeState(State.Chasing);
+			ChangeState(State.EnemyDetected);
 
 		}
 
@@ -133,10 +142,11 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 		
 		//Rotation
 		if (StateManager.CurrentStateEnum is State.InKnockback) return;
+		
 		var targetAngle = Velocity.Normalized().Angle();
 		if (Velocity.LengthSquared() > 0)
 		{
-			Rotation = (float)Mathf.LerpAngle(Rotation, targetAngle, 8 * delta);
+			GlobalRotation = (float)Mathf.LerpAngle(GlobalRotation, targetAngle, 8 * delta);
 		}
 
 		

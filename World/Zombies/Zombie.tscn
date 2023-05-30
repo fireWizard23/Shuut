@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://t56vlmdsrqm6"]
+[gd_scene load_steps=11 format=3 uid="uid://t56vlmdsrqm6"]
 
 [ext_resource type="Script" path="res://World/Zombies/ZombieController.cs" id="1_s4mqb"]
 [ext_resource type="PackedScene" uid="uid://ht2alqa7f206" path="res://Scripts/Hurtbox/hurtbox.tscn" id="2_2ax57"]
@@ -17,18 +17,21 @@ radius = 12.1655
 [sub_resource type="CircleShape2D" id="CircleShape2D_ghik6"]
 radius = 192.0
 
-[node name="Zombie" type="CharacterBody2D" node_paths=PackedStringArray("PathLine2D", "Detector", "StateLabel", "HealthController", "WeaponHandler")]
+[sub_resource type="LabelSettings" id="LabelSettings_xr3j4"]
+font_size = 24
+
+[node name="Zombie" type="CharacterBody2D" node_paths=PackedStringArray("PathLine2D", "Detector", "StateLabel", "HealthController", "WeaponHandler", "DetectionCue")]
 collision_layer = 16
 collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_s4mqb")
-MovementSpeed = 50.0
+MovementSpeed = 64.0
 PathLine2D = NodePath("Line2D")
 Detector = NodePath("Detector")
 StateLabel = NodePath("Label")
 HealthController = NodePath("Health")
 WeaponHandler = NodePath("WeaponHandler")
-BaseDamage = 20
+DetectionCue = NodePath("Detection Cue")
 AttackMask = 5
 _entitySteerAwayLayer = 17
 
@@ -73,6 +76,15 @@ script = ExtResource("4_tuw6m")
 [node name="WeaponHandler" parent="." instance=ExtResource("5_xwfhe")]
 
 [node name="Fist" parent="WeaponHandler" instance=ExtResource("6_epsl6")]
+
+[node name="Detection Cue" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -61.0
+offset_right = 20.0
+offset_bottom = -24.0
+label_settings = SubResource("LabelSettings_xr3j4")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="OnHurt" from="Hurtbox" to="." method="_on_hurtbox_on_hurt"]
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]

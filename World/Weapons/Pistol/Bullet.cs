@@ -16,7 +16,7 @@ public partial class Bullet : Node2D
     private PhysicsDirectSpaceState2D space;
     private IDamager damager;
     private Vector2 _distanceTravelled;
-    private int _poiseDamage;
+    private RangedWeaponInfo _weaponInfo;
 
 
     public override void _Ready()
@@ -28,11 +28,11 @@ public partial class Bullet : Node2D
 
     private void HitboxOnOnHitboxHit(Hurtbox hurtbox)
     {
-        hurtbox.Hurt(new DamageInfo() {Damage =  damage, Source = damager, PoiseDamage = _poiseDamage});
+        hurtbox.Hurt(new DamageInfo() {Damage =  damage, Source = damager, PoiseDamage = _weaponInfo.PoiseDamage});
         QueueFree();
     }
 
-    public void Setup(Vector2 position, Vector2 direction, uint mask, int damage, IDamager damager, int poiseDamage)
+    public void Setup(Vector2 position, Vector2 direction, uint mask, int damage, IDamager damager, RangedWeaponInfo weaponInfo)
     {
         _hitbox.CollisionMask = mask;
         GlobalPosition = position;
@@ -40,8 +40,8 @@ public partial class Bullet : Node2D
         this.damage = damage;
         GlobalRotation = this.direction.Angle();
         this.damager = damager;
-        
-        _poiseDamage = poiseDamage;
+
+        _weaponInfo = weaponInfo;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -51,7 +51,7 @@ public partial class Bullet : Node2D
         GlobalPosition += positionToAdd;
         _distanceTravelled += positionToAdd;
 
-        if (_distanceTravelled.Length() >= Constants.Tile.Sizex5)
+        if (_distanceTravelled.Length() >= _weaponInfo.ShootRange)
         {
             QueueFree();
             return;

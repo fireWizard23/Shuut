@@ -48,7 +48,7 @@ public partial class Pistol : BaseWeapon
 					mask,
 					WeaponOwner.BaseDamage + WeaponInfo.BaseDamage,
 					WeaponOwner,
-					WeaponInfo.PoiseDamage
+					WeaponInfo
 				);
 			}
 			if(WeaponInfo.ShootCount > 1)

@@ -33,7 +33,6 @@ public class NormalState : BaseState<State, Player>
             Parent.InputConsumed = true;
         }
 
-        if (!Input.IsActionJustPressed("dash")) return;
         Parent.InputConsumed = true;
     }
 

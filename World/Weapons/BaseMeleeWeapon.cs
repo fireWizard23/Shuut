@@ -28,7 +28,8 @@ public abstract partial class BaseMeleeWeapon : BaseWeapon
 		hurtbox.Hurt(new()
 		{
 			Damage =  WeaponInfo.BaseDamage + Handler.Parent.BaseDamage,
-			Source =  WeaponOwner
+			Source =  WeaponOwner,
+			PoiseDamage = WeaponInfo.PoiseDamage
 		});
 	}
 	

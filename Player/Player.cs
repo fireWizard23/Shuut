@@ -101,7 +101,7 @@ public partial class Player : StatefulEntity<State, Player>, IDamager
 	private void _on_hurtbox_on_hurt(DamageInfo damageInfo)
 	{
 		_healthController.ReduceHealth(damageInfo.Damage);
-		var isStunned = Poise.Reduce(damageInfo.Damage);
+		var isStunned = Poise.Reduce(damageInfo.PoiseDamage);
 		this.KnockbackInfo = new KnockbackInfo()
 		{
 			Direction = damageInfo.Source.GlobalPosition.DirectionTo(GlobalPosition),

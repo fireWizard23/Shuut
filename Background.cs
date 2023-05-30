@@ -9,7 +9,4 @@ public partial class Background : TileMap
         World.Pathfinding.Instance.Bake(this);
 	}
 
-	public override void _Process(double delta)
-	{
-	}
 }

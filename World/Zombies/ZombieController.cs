@@ -81,7 +81,6 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 	}
 
 
-
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
@@ -246,9 +245,13 @@ public partial class ZombieController : StatefulEntity<State, ZombieController>,
 			Poise = GivenStats.Poise;
 			return;
 		}		
-		damageInfo.Dispose();
 		
 		if (StateManager.CurrentStateEnum is State.Attacking or State.Chasing or State.EnemyDetected)
+			return;
+		ChangeState(State.InKnockback);
+		
+		Target ??= (Node2D)damageInfo.Source;
+		if (StateManager.PreviousStateEnum is State.Chasing or State.Attacking)
 			return;
 		
 		ChangeState(State.EnemyDetected);
